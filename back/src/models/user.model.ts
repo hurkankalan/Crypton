@@ -15,8 +15,8 @@ export function getUserById(id: string) {
 
 export function insertUser(user: User) {
   return pool.query(
-    "INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, $4)",
-    [user.username, user.email, user.password, user.role]
+    "INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, 'user')",
+    [user.username, user.email, user.password]
   );
 }
 
