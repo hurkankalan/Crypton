@@ -1,11 +1,11 @@
 import Router from "express";
 import userControllers from "../controllers/user.controller";
 
-const userRouter = Router();
+const allUserRouter = Router();
 
-userRouter.get("/", userControllers.getAllUsers);
+allUserRouter.get("/", userControllers.getAllUsers);
 
-export default userRouter;
+export default allUserRouter;
 
 // const userRoutes = (app: any) => {
 //   app.get("/users", userControllers.getAllUsers);

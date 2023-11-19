@@ -4,14 +4,14 @@ import userModels from "../models/user.model";
 import { comparePassword } from "../utils/comparePassword";
 
 const userControllers = {
-    async getAllUsers(req: Request, res: Response) {
-      try {
-        const users = await userModels.getAllUsers();
-        res.status(200).json(users.rows);
-      } catch (err) {
-        console.error(err.message);
-      }
-    },
+  async getAllUsers(req: Request, res: Response) {
+    try {
+      const users = await userModels.getAllUsers();
+      res.status(200).json(users);
+    } catch (err) {
+      console.error(err.message);
+    }
+  },
   //   async getUserById(req: Request, res: Response) {
   //     try {
   //       const { id } = req.params;
