@@ -1,0 +1,37 @@
+@use "../abstracts/" as *;
+
+.page-title {
+  padding: 56px 0 57px;
+  background: var(--surface);
+
+  .heading {
+    font-size: 40px;
+    letter-spacing: -0.3px;
+    margin-bottom: 0;
+  }
+
+  .breadcrumb {
+    display: flex;
+    justify-content: flex-end;
+    align-self: center;
+    margin-bottom: 0;
+    margin-top: 11px;
+
+    li {
+      margin-left: 13px;
+
+      a {
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 400;
+
+        &:hover {
+          color: var(--primary);
+        }
+      }
+      p {
+        letter-spacing: 0;
+      }
+    }
+  }
+}

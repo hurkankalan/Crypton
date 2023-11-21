@@ -1,0 +1,130 @@
+@use "../../styles/scss/abstracts/" as *;
+
+.container {
+
+  .navbar {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    background: var(--secondary);
+    @include flex(center, center);
+    transition: $transition;
+
+    .navcontentRight {
+      @include flex(center, flex-end);
+
+      margin-left: auto;
+
+        .navlink {
+          position: relative;
+          transition: 0.3s all ease-in-out;
+          padding: 13px 16px;
+          color: #fff;
+
+          &:hover {
+            background: var(--primary);
+            color: #fff;
+          }
+
+          @include desktop-1200 {
+            padding: 13px 11px;
+
+            a {
+              font-size: 14px;
+            }
+          }
+        }
+
+
+      .dropdown {
+        position: relative;
+
+        .button_drop {
+          text-align: left;
+          background: none;
+          border: none;
+          padding: 14px 16px;
+          text-decoration: none;
+          transition: all 0.3s ease-in-out;
+          cursor: pointer;
+          display: inline-block;
+          font-weight: 700;
+          font-size: 16px;
+          color: var(--onsurface);
+          color: #fff;
+
+          &:hover {
+            background: var(--primary);
+            color: #fff;
+          }
+        }
+      }
+
+      .menu {
+        position: absolute;
+
+        list-style-type: none;
+        margin: 5px 0;
+        padding: 0;
+
+        border: 1px solid grey;
+        width: 150px;
+
+        li {
+          margin: 0;
+
+          background-color: white;
+
+          &:hover {
+            background-color: lightgray;
+          }
+
+        }
+      }
+    }
+
+
+    .navcontentLeft {
+      @include flex(center, flex-end);
+
+      .logo {
+        color: #fff;
+        .light {
+          display: block;
+        }
+
+        .dark {
+          display: none;
+        }
+      }
+
+      .navlinks {
+        margin-left: 100px;
+
+        .navlink {
+          position: relative;
+          transition: 0.3s all ease-in-out;
+          padding: 13px 16px;
+          color: #fff;
+
+          &:hover {
+            background: var(--primary);
+            color: #fff;
+          }
+
+          @include desktop-1200 {
+            padding: 13px 11px;
+
+            a {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+}
