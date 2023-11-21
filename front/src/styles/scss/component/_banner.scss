@@ -1,0 +1,139 @@
+@use "../abstracts/" as *;
+
+.banner {
+  background: var(--surface);
+  padding: 84px 0 145px;
+
+  .banner__content {
+    .title {
+      line-height: 1.11;
+      letter-spacing: -1.2px;
+      margin-bottom: 24px;
+
+      @include mobile {
+        font-size: 40px;
+      }
+    }
+    .desc {
+      letter-spacing: -0.2px;
+      padding-right: 70px;
+    }
+
+    .btn-action {
+      color: #fff;
+      margin-top: 48px;
+    }
+    .partner {
+      margin-top: 43px;
+      .partner__list {
+        margin-top: 21px;
+
+        .swiper-slide {
+          width: auto !important;
+
+          @include tablet {
+            width: 157px !important;
+          }
+
+          @include mobile {
+            width: 130px !important;
+          }
+        }
+      }
+    }
+  }
+
+  .banner__image {
+    text-align: right;
+    margin-top: -3px;
+
+    @include desktop-1200 {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    @include mobile {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.home-2 {
+  .banner {
+    padding: 78px 0 195px;
+    .banner__content {
+      padding-top: 28px;
+      .desc {
+        padding-right: 0;
+      }
+
+      .btn-action {
+        padding: 13px 24px;
+      }
+    }
+  }
+}
+
+.home-3 {
+  .banner {
+    padding: 77px 0 0;
+    background: var(--bg);
+
+    .banner__content {
+      text-align: center;
+      padding: 0 360px;
+
+      .desc {
+        padding: 0 65px;
+      }
+
+      .btn-action {
+        padding: 13px 43px;
+      }
+    }
+    .banner__image {
+      text-align: center;
+      margin-top: -27px;
+    }
+
+    @include desktop-1200 {
+      .banner__content {
+        padding: 0;
+      }
+      .banner__image {
+        margin-top: 40px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.markets {
+  .banner {
+    background: rgba(55, 114, 255, 0.1);
+    padding: 110px 0 100px;
+    .banner__content {
+      padding-top: 42px;
+      padding-right: 100px;
+
+      .desc {
+        font-family: $font-second;
+
+        span {
+          font-weight: 600;
+          color: var(--onsurface);
+        }
+      }
+    }
+  }
+}
+
+.is_dark {
+  .markets .banner {
+    background: #18191d;
+  }
+}

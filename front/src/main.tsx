@@ -7,12 +7,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 /* Components */
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 /* Styles */
-import "./styles/index.css";
+import "./styles/scss/app.scss"
 
 /* Routes */
 const router = createBrowserRouter([
