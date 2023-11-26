@@ -11,9 +11,13 @@ const userModels = {
     return pool.query("SELECT * FROM users WHERE id = $1", [id]);
   },
 
-  insertUser(user: User): Promise<QueryResult<User>> {
+  getUserByEmail(email: string): Promise<QueryResult<User>> {
+    return pool.query("SELECT * FROM users WHERE email = $1", [email]);
+  },
+
+  insertUser(user: NewUser): Promise<QueryResult<NewUser>> {
     return pool.query(
-      "INSERT INTO users (username, email, password, role) VALUES ($1, $2, $3, 'user')",
+      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)",
       [user.username, user.email, user.password]
     );
   },
@@ -25,7 +29,7 @@ const userModels = {
     );
   },
 
-  deleteUser(id: number): Promise<QueryResult<User>> {
+  deleteUser(id: string): Promise<QueryResult<User>> {
     return pool.query("DELETE FROM users WHERE id = $1", [id]);
   },
 
