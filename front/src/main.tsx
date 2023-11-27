@@ -10,6 +10,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import MarketTable from "./components/market-tables/MarketTable.tsx";
 import Footer from "./components/Footer/Footer";
 
 /* Styles */
@@ -25,10 +26,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Navbar />,
+
     children: [
+      { index: true, element: <Home /> },
       {
-        path: "/",
-        element: <Home />,
+        path: "/Markets",
+        element: <MarketTable />,
       },
       {
         path: "/login",

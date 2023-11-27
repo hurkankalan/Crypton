@@ -2,6 +2,7 @@ import express from "express";
 import { Request, Response } from "express";
 import cookie from "cookie-parser";
 import userRouter from "./routes/index.route";
+import { getPressReview } from "./utils/rssArticles";
 
 const app = express();
 const port = 8000;
@@ -17,4 +18,5 @@ app.get("/", (req: Request, res: Response) => {
 
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port} 🚀`);
+  getPressReview();
 });
