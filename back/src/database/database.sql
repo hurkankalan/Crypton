@@ -12,3 +12,14 @@ CREATE TABLE "user" (
   password VARCHAR(255) NOT NULL,
   role VARCHAR(255) DEFAULT 'user' NOT NULL
 );
+
+-- Create table "articles"
+CREATE TABLE articles (
+  id VARCHAR(255) PRIMARY KEY,
+  title VARCHAR(255),
+  summary TEXT,
+  source VARCHAR(255),
+  date TIMESTAMP,
+  pageUrl VARCHAR(255),
+  imageUrl VARCHAR(255)
+);
