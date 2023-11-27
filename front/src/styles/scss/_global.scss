@@ -6,9 +6,9 @@
 */
 @use "./abstracts/" as *;
 
-@import "../bootstrap/css/bootstrap.min.css";
-@import "../../assets/style.css";
-@import "../dist/aos.css";
+@import "../documentation/assets/bootstrap.min.css";
+@import "../documentation/style.css";
+// @import "../dist/aos.css";
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
 
@@ -31,6 +31,16 @@
   --line: #e5e5e5;
   --text: #777e90;
   --second: #58bd7d;
+  /* Layouts*/
+  --lg-layout : 'only screen and (min-width: 992px) and (max-width: 1199px)';
+  --sp-layout : 'only screen and (min-width: 1920px)';
+  --xx-layout : 'only screen and (min-width: 1600px) and (max-width: 1919px)';
+  --xlg-layout : 'only screen and (min-width: 1200px) and (max-width: 1599px)';
+  --md-layout:'only screen and (min-width: 768px) and (max-width: 991px)';
+  --sm-layout:'only screen and (max-width: 767px)';
+  --xs-layout: 'only screen and (max-width: 575px)';
+  --xxs-layout: 'only screen and (max-width: 420px)';
+
 }
 .is_dark {
   --bg: #141416;
@@ -446,3 +456,4 @@ body[data-magic-cursor="hide"] .mouse-cursor {
 .left {
   text-align: left;
 }
+

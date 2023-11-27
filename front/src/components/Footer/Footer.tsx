@@ -8,6 +8,7 @@ import {
   FaTumblrSquare,
 } from "react-icons/fa";
 import { MdExpandLess } from "react-icons/md";
+import "./Footer.module.scss";
 
 interface FooterProps {
   theme: string;
@@ -49,19 +50,19 @@ const Footer: React.FC<FooterProps> = ({ theme }) => {
                 <div className="footer__inner">
                   <ul className="ft__menu">
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Bitcoin Price</a>
+                      <a href="#">Bitcoin Price</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Blog</a>
+                      <a href="#">Blog</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Helps Portal</a>
+                      <a href="#">Helps Portal</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Privacy Policy</a>
+                      <a href="#">Privacy Policy</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Buy Theme</a>
+                      <a href="#">Buy Theme</a>
                     </li>
                   </ul>
                 </div>
@@ -73,21 +74,19 @@ const Footer: React.FC<FooterProps> = ({ theme }) => {
                 <div className="footer__inner">
                   <ul className="ft__menu">
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>
-                        Currency Exchange
-                      </a>
+                      <a href="#">Currency Exchange</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Todays Rate</a>
+                      <a href="#">Todays Rate</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>About Howard</a>
+                      <a href="#">About Howard</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Privacy Policy</a>
+                      <a href="#"> Privacy Policy</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>How To Video</a>
+                      <a href="#">How To Video</a>
                     </li>
                   </ul>
                 </div>
@@ -99,21 +98,19 @@ const Footer: React.FC<FooterProps> = ({ theme }) => {
                 <div className="footer__inner">
                   <ul className="ft__menu">
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Contact us</a>
+                      <a href="#">Contact us</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Support Center</a>
+                      <a href="#">Support Center</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Helps</a>
+                      <a href="#">Helps</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>
-                        Terms &amp; Conditions
-                      </a>
+                      <a href="#">Terms &amp; Conditions</a>
                     </li>
                     <li>
-                      <a href={process.env.PUBLIC_URL + "/"}>Live Chat</a>
+                      <a href="#">Live Chat</a>
                     </li>
                   </ul>
                 </div>

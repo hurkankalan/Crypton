@@ -10,10 +10,15 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Footer from "./components/Footer/Footer"; // Assurez-vous que le chemin est correct
+import Footer from "./components/Footer/Footer";
 
 /* Styles */
 import "./styles/scss/app.scss";
+import "./styles/scss/_global.scss";
+import "./styles/scss/grid.scss";
+import "./styles/scss/helper.scss";
+import "./styles/scss/reset.scss";
+// import "./styles/scss/flex.scss";
 
 /* Routes */
 const router = createBrowserRouter([
