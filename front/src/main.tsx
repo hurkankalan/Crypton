@@ -25,21 +25,16 @@ import "./styles/scss/reset.scss";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navbar />,
-
+    element: <div></div>, // AJOUTER LA PAGE QUI ENGLOBE LE LOGIN ET REGISTER ICI 
+  },
+  {
+    path: "/home",
+    element: <Navbar />, // AJOUTER LA PAGE QUI ENGLOBE LA NAVBAR ET ET LE FOOTERICI
     children: [
       { index: true, element: <Home /> },
       {
-        path: "/Markets",
+        path: "markets",
         element: <MarketTable />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
       },
     ],
   },
@@ -48,7 +43,5 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    <Footer theme="white" />{" "}
-    {/* Ajoutez le Footer ici, avec le prop 'theme' selon vos besoins */}
   </React.StrictMode>
 );
