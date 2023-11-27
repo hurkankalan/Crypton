@@ -1,6 +1,6 @@
 import marketTableData from "./market-table-one.json";
 import MarketTableSingle from "./MarketTableSingle.js";
-import"./MarketTable.Module.scss"
+import "./MarketTable.Module.scss"
 export default function MarketTable (){
     return (
         <div className="market__table bg--white pt--140 pb--120">
