@@ -15,11 +15,11 @@ CREATE TABLE "user" (
 
 -- Create table "articles"
 CREATE TABLE articles (
-  id VARCHAR(255) PRIMARY KEY,
-  title VARCHAR(255),
+  id VARCHAR(500) PRIMARY KEY,
+  title VARCHAR(500),
   summary TEXT,
-  source VARCHAR(255),
+  source VARCHAR(500),
   date TIMESTAMP,
-  pageUrl VARCHAR(255),
-  imageUrl VARCHAR(255)
+  pageUrl VARCHAR(500),
+  imageUrl VARCHAR(500)
 );
