@@ -18,26 +18,24 @@ const articleModels = {
     await pool.query(query, values);
   },
 
+  getAll: async (): Promise<Article[]> => {
+      const query = 'SELECT * FROM articles';
+      const res = await pool.query(query);
+      return res.rows;
+  },
+
   getById: async (id: string): Promise<Article> => {
-    try {
       const query = 'SELECT * FROM articles WHERE id = $1';
       const values = [id];
       const res = await pool.query(query, values);
       return res.rows[0];
-    }catch (error) {
-      console.log(error);
-    }
   },
 
   getByKeyword: async (keyword: string): Promise<Article[]> => {
-    try {
       const query = 'SELECT * FROM articles WHERE title LIKE $1 OR summary LIKE $1 OR source LIKE $1';
       const values = [`%${keyword}%`];
       const res = await pool.query(query, values);
       return res.rows;
-    } catch (error) {
-      console.log(error);
-    }
   },
 };
 
