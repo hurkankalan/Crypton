@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import articleModels from "../models/article.model";
+import { Article } from "../types/article";
 
 const articleControllers = {
 
@@ -14,9 +15,14 @@ const articleControllers = {
     },
 
     async getArticlesBykeyword(req: Request, res: Response) {
+        let articles: Article[];
         try {
-            const keyword = req.query.keyword as string;
-            const articles = await articleModels.getByKeyword(keyword);
+            if (!req.query.keyword) {
+                articles = await articleModels.getAll();
+            } else{
+                const keyword = req.query.keyword as string;
+                articles = await articleModels.getByKeyword(keyword);
+            }
             res.status(200).json(articles);
         } catch (error) {
             res.status(500).json(error.message);
