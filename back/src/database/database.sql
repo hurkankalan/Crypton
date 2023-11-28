@@ -37,13 +37,13 @@ CREATE TABLE cryptos_users (
 
 -- Create table articles
 CREATE TABLE articles (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
+  id VARCHAR(500) PRIMARY KEY,
+  title VARCHAR(500) NOT NULL,
   summary TEXT NOT NULL,
-  source VARCHAR(255) NOT NULL,
+  source VARCHAR(500) NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  pageUrl VARCHAR(255) NOT NULL,
-  imageUrl VARCHAR(255)
+  pageUrl VARCHAR(500) NOT NULL,
+  imageUrl VARCHAR(500)
 );
 
 -- CREATE TABLE wallet
