@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import MarketTable from "./components/market-tables/MarketTable.tsx";
 import Footer from "./components/Footer/Footer";
+import Article from "./components/Article/Article.tsx";
 
 /* Styles */
 import "./styles/scss/app.scss";
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register />,
       },
+      {
+        path: "/Article",
+        element: <Article />,
+      },
     ],
   },
 ]);
@@ -49,6 +54,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
     <Footer theme="white" />{" "}
-    {/* Ajoutez le Footer ici, avec le prop 'theme' selon vos besoins */}
   </React.StrictMode>
 );
