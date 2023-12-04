@@ -1,3 +1,8 @@
+-- Drop the database if it exists
+DROP DATABASE IF EXISTS crypton;
+
+\c postgres;
+
 -- Create database "crypton"
 CREATE DATABASE crypton;
 
@@ -5,7 +10,7 @@ CREATE DATABASE crypton;
 \c crypton;
 
 -- Create table cryptos
-CREATE TABLE cryptos (
+CREATE TABLE IF NOT EXISTS cryptos (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   currentPrice FLOAT NOT NULL,
@@ -16,7 +21,7 @@ CREATE TABLE cryptos (
 );
 
 -- Create table users
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
@@ -26,7 +31,7 @@ CREATE TABLE users (
 );
 
 -- Create table cryptos_users
-CREATE TABLE cryptos_users (
+CREATE TABLE IF NOT EXISTS cryptos_users (
   cryptos_id INTEGER NOT NULL,
   users_id INTEGER NOT NULL,
   FOREIGN KEY (cryptos_id) REFERENCES cryptos(id),
@@ -36,7 +41,7 @@ CREATE TABLE cryptos_users (
 
 
 -- Create table articles
-CREATE TABLE articles (
+CREATE TABLE IF NOT EXISTS articles (
   id VARCHAR(500) PRIMARY KEY,
   title VARCHAR(500) NOT NULL,
   summary TEXT NOT NULL,
@@ -47,7 +52,7 @@ CREATE TABLE articles (
 );
 
 -- CREATE TABLE wallet
-CREATE TABLE wallet (
+CREATE TABLE IF NOT EXISTS wallet (
   id SERIAL PRIMARY KEY,
   usersId INTEGER NOT NULL,
   accountAmount FLOAT NOT NULL DEFAULT 0,
