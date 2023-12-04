@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "title": "Large Mining Farm Discovered in Abandoned Russian Factory",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 2,
+    "title": "Duis convallis nulla a felis vestibulum, ac interdum lectus eleifend.",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 3,
+    "title": "Cras ante risus, lacinia eget lectus eleifend, gravida pretium risus.",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 4,
+    "title": "Sed venenatis diam id tristique convallis. Etiam egestas luctus velit non efficitur.",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 5,
+    "title": "Mauris eget metus justo. Praesent mattis, sem vitae cursus euismod",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 6,
+    "title": "Vestibulum id urna sagittis, vestibulum est id, vehicula lectus. Donec elit quam",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 7,
+    "title": "Maecenas massa quam, auctor sit amet vulputate vel, hendrerit vitae orci. ",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 8,
+    "title": "Nulla dignissim mollis dolor. Donec placerat at velit dictum ultrices.",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 9,
+    "title": "Suspendisse egestas ante vulputate molestie blandit",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 10,
+    "title": "Nulla dignissim mollis dolor. Donec placerat at velit dictum ultrices.",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 11,
+    "title": "Nulla dignissim mollis dolor. Donec placerat at velit dictum ultrices.",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 12,
+    "title": "Nulla dignissim mollis dolor. Donec placerat at velit dictum ultrices.",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 13,
+    "title": "Nulla dignissim mollis dolor. Donec placerat at velit dictum ultrices.",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  },
+  {
+    "id": 14,
+    "title": "Nulla dignissim mollis dolor. Donec placerat at velit dictum ultrices.",
+    "summary": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+    "source": "Source Name",
+    "date": "2020-02-16T00:00:00Z",
+    "pageUrl": "https://example.com/article1",
+    "imageUrl": "https://picsum.photos/370/300"
+  }
+]

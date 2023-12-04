@@ -12,3 +12,34 @@
     align-items: center;  
   }
   
+  .dg__pagination {
+    display: flex; // Utilisez flexbox pour l'alignement
+    justify-content: center; // Centrez les boutons de pagination
+    list-style-type: none; // Supprimez le style de liste par défaut
+    padding: 0; // Retirez le padding par défaut
+  
+    li {
+      margin: 0 5px; // Espacez les boutons de pagination
+  
+      a {
+        display: inline-block;
+        padding: 8px 12px; // Taille des boutons
+        background-color: #f4f4f4; // Couleur de fond
+        color: #333; // Couleur du texte
+        text-decoration: none; // Aucun soulignement de texte
+        border-radius: 5px; // Bordures arrondies pour l'esthétique
+        border: 1px solid #ddd; // Bordure subtile
+  
+        &:hover {
+          background-color: #ddd; // Changement de couleur au survol
+          cursor: pointer; // Curseur pointeur pour indiquer la cliquabilité
+        }
+  
+        &.active {
+          background-color: #007bff; // Couleur de fond pour la page active
+          color: white; // Couleur du texte pour la page active
+        }
+      }
+    }
+  }
+  
