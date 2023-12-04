@@ -23,17 +23,17 @@ export default function Navbar() {
     <div className={styles.container}>
       <div className={styles.navbar}>
         <div className={styles.navcontentLeft}>
-          <NavLink to="/" className={styles.logo}>
+          <NavLink to="/home" className={styles.logo}>
             Your Logo
           </NavLink>
           <div className={styles.navlinks}>
-            <NavLink to="/" className={styles.navlink}>
+            <NavLink to="/home" className={styles.navlink}>
               Home
             </NavLink>
-            <NavLink to="/Markets" className={styles.navlink}>
+            <NavLink to="/home/Markets" className={styles.navlink}>
               Markets
             </NavLink>
-            <NavLink to="/Article" className={styles.navlink}>
+            <NavLink to="/blog" className={styles.navlink}>
               Blog
             </NavLink>
           </div>

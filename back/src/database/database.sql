@@ -12,7 +12,7 @@ CREATE TABLE cryptos (
   openingPrice FLOAT NOT NULL,
   lowestPrice FLOAT NOT NULL,
   highestPrice FLOAT NOT NULL,
-  imageUrl VARCHAR(255),
+  imageUrl VARCHAR(255)
 );
 
 -- Create table users
@@ -29,21 +29,21 @@ CREATE TABLE users (
 CREATE TABLE cryptos_users (
   cryptos_id INTEGER NOT NULL,
   users_id INTEGER NOT NULL,
-  FOREIGN KEY (cryptosId) REFERENCES cryptos(id),
-  FOREIGN KEY (usersId) REFERENCES users(id),
-  PRIMARY KEY (cryptosId, usersId)
+  FOREIGN KEY (cryptos_id) REFERENCES cryptos(id),
+  FOREIGN KEY (users_id) REFERENCES users(id),
+  PRIMARY KEY (cryptos_id, users_id)
 );
 
 
 -- Create table articles
 CREATE TABLE articles (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
+  id VARCHAR(500) PRIMARY KEY,
+  title VARCHAR(500) NOT NULL,
   summary TEXT NOT NULL,
-  source VARCHAR(255) NOT NULL,
+  source VARCHAR(500) NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  pageUrl VARCHAR(255) NOT NULL,
-  imageUrl VARCHAR(255)
+  pageUrl VARCHAR(500) NOT NULL,
+  imageUrl VARCHAR(500)
 );
 
 -- CREATE TABLE wallet
