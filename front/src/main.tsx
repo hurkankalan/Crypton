@@ -22,7 +22,7 @@ import Container from "./pages/Container/Container.tsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div></div>, // AJOUTER LA PAGE QUI ENGLOBE LE LOGIN ET REGISTER ICI 
+    element: <div></div>, // AJOUTER LA PAGE QUI ENGLOBE LE LOGIN ET REGISTER ICI
   },
   {
     path: "/home",
