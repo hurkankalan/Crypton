@@ -3,9 +3,12 @@ import { Request, Response } from "express";
 import cookie from "cookie-parser";
 import userRouter from "./routes/index.route";
 import { getPressReview } from "./utils/rssArticles";
+import cors from "cors";
 
 const app = express();
 const port = 8000;
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
