@@ -12,7 +12,7 @@ CREATE TABLE cryptos (
   openingPrice FLOAT NOT NULL,
   lowestPrice FLOAT NOT NULL,
   highestPrice FLOAT NOT NULL,
-  imageUrl VARCHAR(255),
+  imageUrl VARCHAR(255)
 );
 
 -- Create table users
@@ -29,9 +29,9 @@ CREATE TABLE users (
 CREATE TABLE cryptos_users (
   cryptos_id INTEGER NOT NULL,
   users_id INTEGER NOT NULL,
-  FOREIGN KEY (cryptosId) REFERENCES cryptos(id),
-  FOREIGN KEY (usersId) REFERENCES users(id),
-  PRIMARY KEY (cryptosId, usersId)
+  FOREIGN KEY (cryptos_id) REFERENCES cryptos(id),
+  FOREIGN KEY (users_id) REFERENCES users(id),
+  PRIMARY KEY (cryptos_id, users_id)
 );
 
 
