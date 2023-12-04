@@ -7,11 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 /* Components */
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar/Navbar";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import MarketTable from "./components/market-tables/MarketTable.tsx";
-import Footer from "./components/Footer/Footer";
 
 /* Styles */
 import "./styles/scss/app.scss";
@@ -19,27 +15,23 @@ import "./styles/scss/_global.scss";
 import "./styles/scss/grid.scss";
 import "./styles/scss/helper.scss";
 import "./styles/scss/reset.scss";
+import Container from "./pages/Container/Container.tsx";
 // import "./styles/scss/flex.scss";
 
 /* Routes */
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navbar />,
-
+    element: <div></div>, // AJOUTER LA PAGE QUI ENGLOBE LE LOGIN ET REGISTER ICI 
+  },
+  {
+    path: "/home",
+    element: <Container />,
     children: [
       { index: true, element: <Home /> },
       {
-        path: "/Markets",
+        path: "markets",
         element: <MarketTable />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
       },
     ],
   },
@@ -48,7 +40,5 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-    <Footer theme="white" />{" "}
-    {/* Ajoutez le Footer ici, avec le prop 'theme' selon vos besoins */}
   </React.StrictMode>
 );
