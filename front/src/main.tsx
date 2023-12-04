@@ -16,6 +16,7 @@ import "./styles/scss/grid.scss";
 import "./styles/scss/helper.scss";
 import "./styles/scss/reset.scss";
 import Container from "./pages/Container/Container.tsx";
+import Article from "./components/Article/Article.tsx";
 // import "./styles/scss/flex.scss";
 
 /* Routes */
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "markets",
         element: <MarketTable />,
+      },
+      {
+        path: "article",
+        element: <Article />,
       },
     ],
   },

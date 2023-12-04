@@ -33,7 +33,7 @@ export default function Navbar() {
             <NavLink to="/home/Markets" className={styles.navlink}>
               Markets
             </NavLink>
-            <NavLink to="/blog" className={styles.navlink}>
+            <NavLink to="/home/Article" className={styles.navlink}>
               Blog
             </NavLink>
           </div>
