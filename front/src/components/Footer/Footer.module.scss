@@ -12,12 +12,15 @@
 
         color: #FFFFFF;
     }
+
     .footer__inner {
         margin-top: 38px;
+
         ul {
             padding: 0;
 
             list-style: outside none none;
+
             li {
                 font-size: 18px;
 
@@ -26,15 +29,18 @@
                 transition: 0.5s;
 
                 color: #8F8F8F;
+
                 &:hover {
                     color: --primary;
                 }
+
                 a {
                     font-size: 18px;
 
                     transition: 0.5s;
 
                     color: #8F8F8F;
+
                     &:hover {
                         color: --primary;
                     }
@@ -42,109 +48,42 @@
             }
         }
     }
+
     &.resources {
         margin-left: 34px;
     }
+
     &.support {
         margin-left: 93px;
     }
+
     &.information {
         margin-left: 59px;
     }
 }
 
-.footer--2 .footer__widget h4 {
-    color: #001232;
-}
-
-.footer--2 .footer__widget .footer__inner ul li a,
-.footer--2 .footer__widget .footer__inner ul li {
-    color: #1A1200;
-}
-
-.footer--2 .footer__widget .footer__inner ul li a:hover,
-.footer--2 .footer__widget .footer__inner ul li:hover {
-    color: #F7A901;
-}
-
-.footer--2 .copyright .copyright__inner p {
-    color: #1A1200;
-}
-
-.footer--1 .footer__widget .footer__inner ul li a:hover,
-.footer--1 .footer__widget .footer__inner ul li:hover {
-    color: #F7A901;
-}
-
-/* Copyright */
-
-.copyright {
-    padding: 25px 0;
-    .footer__right {
-        margin: 0;
-        padding: 0;
-
-        text-align: right;
-    }
-    .copyright__inner {
-        p {
-            font-size: 16px;
-
-            margin: 0;
-
-            color: #888888;
-        }
-    }
-}
-
-.social__icon {
-    display: flex;
-    justify-content: flex-end;
-
-    list-style: outside none none;
-    li {
-        margin-left: 30px;
-        a {
-            svg {
-                font-size: 18px;
-
-                transition: 0.3s;
-
-                color: #888888;
-            }
-            &:hover svg {
-                color: #005CFF;
-            }
-        }
-    }
-}
-
-.footer--2 .social__icon li a svg {
-    transition: 0.3s;
-
-    color: #1A1200;
-}
-
-.footer--2 .social__icon li a:hover svg {
-    color: #005CFF;
-}
 
 @media #{--lg-layout} {
     .dg__brand__area .space-between {
         padding: 0;
     }
+
     .footer__widget.resources {
         margin-left: 0;
     }
+
     .footer__widget.information {
         margin-left: 20px;
     }
+
     .footer__widget.support {
         margin-left: 34px;
     }
+
     .footer__widget .footer__inner ul li {
         font-size: 16px;
     }
+
     .footer__widget .footer__inner ul li a {
         font-size: 16px;
     }
@@ -154,12 +93,15 @@
     .dg__brand__area .space-between {
         padding: 0;
     }
+
     .footer__widget.support {
         margin-left: 0;
     }
+
     .footer__widget.resources {
         margin-left: 0;
     }
+
     .footer__widget.information {
         margin-left: 0;
     }
@@ -169,12 +111,15 @@
     .dg__brand__area .space-between {
         padding: 0;
     }
+
     .footer__widget.support {
         margin-left: 0;
     }
+
     .footer__widget.resources {
         margin-left: 0;
     }
+
     .footer__widget.information {
         margin-left: 0;
     }
@@ -184,12 +129,63 @@
     .social__icon {
         justify-content: center;
     }
+
     .copyright__inner {
         margin-bottom: 14px;
 
         text-align: center;
     }
+
     .social__icon li:first-child {
         margin-left: 0;
+    }
+}
+
+._Footer_5wf6d_6 {
+
+    /* Copyright */
+    .copyright {
+        padding: 25px 0 !important;
+
+        .footer__right {
+            .social__icon {
+                display: flex;
+                justify-content: center;
+                list-style: none;
+                padding: 0;
+
+                li {
+                    margin: 0 10px; // Ajoute un espace horizontal entre les icônes
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 40px; // Hauteur fixe pour les icônes
+                        width: 40px; // Largeur fixe pour les icônes
+
+                        svg {
+                            max-width: 100%;
+                            max-height: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .col-lg-6.col-sm-6.col-12 {
+        display: flex;
+        justify-content: center; // Centre horizontalement
+        align-items: center; // Centre verticalement
+        height: 100%; // Assurez-vous que le conteneur a une hauteur pour le centrage vertical
+
+        .copyright__inner {
+            text-align: center; // Centre le texte à l'intérieur du paragraphe
+
+            p {
+                margin: 0; // Enlève la marge par défaut du paragraphe si nécessaire
+            }
+        }
     }
 }

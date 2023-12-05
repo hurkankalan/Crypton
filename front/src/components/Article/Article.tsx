@@ -21,8 +21,14 @@ const Article: React.FC = () => {
     indexOfLastArticle
   );
 
-  // Fonction pour changer la page courante
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  // Fonction pour changer la page courante et remonter au début de la page
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({
+      top: 0, // Remonte tout en haut de la page
+      behavior: "smooth", // Animation douce
+    });
+  };
 
   return (
     <>
@@ -74,15 +80,19 @@ const Article: React.FC = () => {
             <div className="col-lg-12">
               {/* Pagination */}
               <ul className="dg__pagination d-flex">
-                {/* Génération des numéros de page pour la pagination */}
-
                 {[
                   ...Array(
                     Math.ceil(articlesData.length / ArticlesPerPage)
                   ).keys(),
                 ].map((number) => (
                   <li key={number + 1}>
-                    <a onClick={() => paginate(number + 1)} href="#!">
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        paginate(number + 1);
+                      }}
+                      href="#!"
+                    >
                       {number + 1}
                     </a>
                   </li>
