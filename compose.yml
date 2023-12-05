@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  db:
+    container_name: crypton-db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: hurkankalan24
+      POSTGRES_DB: crypton
+    ports:
+      - 5432:5432
+    volumes:
+      - crypton-db-data:/var/lib/postgresql/data
+      - ./api/src/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  api:
+    container_name: crypton-api
+    depends_on:
+      - db
+    build:
+      context: ./api
+      dockerfile: dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - type: bind
+        source: ./api/src
+        target: /app/src
+volumes:
+  crypton-db-data:

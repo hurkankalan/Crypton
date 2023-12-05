@@ -23,6 +23,7 @@ export function verifyToken(req: Request, res: Response, next: NextFunction) {
     }
   } catch (error) {
     console.error(error);
-    res.status(error.status || 500).json({ error });
+    const status = (error as { status?: number }).status || 500;
+    res.status(status).json({ error });
   }
 }
