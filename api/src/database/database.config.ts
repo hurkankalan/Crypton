@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+console.log(process.env);
+
 const pool = new Pool({
   database: process.env.DB_NAME || "", // Ajoutez une chaîne vide comme valeur par défaut
   user: process.env.DB_USER || "",
