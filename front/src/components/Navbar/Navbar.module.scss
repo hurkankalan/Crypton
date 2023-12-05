@@ -17,25 +17,27 @@
 
       margin-left: auto;
 
-        .navlink {
-          position: relative;
-          transition: 0.3s all ease-in-out;
-          padding: 13px 16px;
+      .navlink, .profile {
+        font-weight: 700;
+        position: relative;
+        transition: 0.3s all ease-in-out;
+        padding: 14px 16px;
+        color: #fff;
+
+        &:hover {
+          cursor: pointer;
+          background: var(--primary);
           color: #fff;
+        }
 
-          &:hover {
-            background: var(--primary);
-            color: #fff;
-          }
+        @include desktop-1200 {
+          padding: 13px 11px;
 
-          @include desktop-1200 {
-            padding: 13px 11px;
-
-            a {
-              font-size: 14px;
-            }
+          a {
+            font-size: 14px;
           }
         }
+      }
 
 
       .dropdown {
@@ -73,12 +75,13 @@
         width: 150px;
 
         li {
+          background-color: var(--secondary);
           margin: 0;
 
-          background-color: white;
+          
 
           &:hover {
-            background-color: lightgray;
+            background: var(--primary);
           }
 
         }
@@ -91,6 +94,7 @@
 
       .logo {
         color: #fff;
+
         .light {
           display: block;
         }
@@ -106,7 +110,7 @@
         .navlink {
           position: relative;
           transition: 0.3s all ease-in-out;
-          padding: 13px 16px;
+          padding: 14px 16px;
           color: #fff;
 
           &:hover {
