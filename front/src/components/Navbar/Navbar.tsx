@@ -1,8 +1,13 @@
 import { NavLink, Outlet } from "react-router-dom";
 import styles from "./Navbar.module.scss";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export default function Navbar() {
+interface NavBarProps {
+  OpenProfile: boolean;
+  setOpenProfile: Dispatch<SetStateAction<boolean>>
+}
+
+export const Navbar: React.FC<NavBarProps> = ({ OpenProfile,setOpenProfile }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -68,7 +73,7 @@ export default function Navbar() {
             Logout
           </NavLink>
           <div className={styles.profile}>
-            Profile
+            <button onClick={()=>setOpenProfile(!OpenProfile)}>Profile</button>
           </div>
         </div>
       </div>
