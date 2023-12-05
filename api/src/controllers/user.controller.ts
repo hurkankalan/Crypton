@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { hashPassword } from "../utils/hashPassword";
 import { comparePassword } from "../utils/comparePassword";
 import userModels from "../models/user.model";
-import { User, NewUser } from "../types/User";
+import { NewUser } from "../types/User";
 
 const userControllers = {
   async allUsers(req: Request, res: Response) {
@@ -13,7 +13,8 @@ const userControllers = {
       res.status(200).json(users.rows);
     } catch (error) {
       console.error(error);
-      res.status(error.status || 500).json({ error: error.message });
+      const status = (error as { status?: number }).status || 500;
+      res.status(status).json({ error });
     }
   },
 
@@ -34,7 +35,8 @@ const userControllers = {
       res.status(200).json(user.rows);
     } catch (error) {
       console.error(error);
-      res.status(error.status || 500).json({ error });
+      const status = (error as { status?: number }).status || 500;
+      res.status(status).json({ error });
     }
   },
 
@@ -101,7 +103,8 @@ const userControllers = {
       }
     } catch (error) {
       console.error(error);
-      res.status(error.status || 500).json({ error });
+      const status = (error as { status?: number }).status || 500;
+      res.status(status).json({ error });
     }
   },
 
@@ -125,8 +128,9 @@ const userControllers = {
 
       res.sendStatus(204);
     } catch (error) {
-      console.error(error.message);
-      res.status(error.status || 500).json({ error: error.message });
+      console.error(error);
+      const status = (error as { status?: number }).status || 500;
+      res.status(status).json({ error });
     }
   },
 
@@ -166,7 +170,8 @@ const userControllers = {
       }
     } catch (error) {
       console.error(error);
-      res.status(error.status || 500).json({ error });
+      const status = (error as { status?: number }).status || 500;
+      res.status(status).json({ error });
     }
   },
 
@@ -198,6 +203,10 @@ const userControllers = {
         throw { status: 401, message: "Password incorrect" };
       }
 
+      if (!process.env.PRIVATE_KEY) {
+        throw { status: 401, message: "Password incorrect" };
+      }
+
       const token = jwt.sign(
         {
           id: user.rows[0].id,
@@ -212,7 +221,8 @@ const userControllers = {
       res.sendStatus(201);
     } catch (error) {
       console.error(error);
-      res.status(error.status || 500).json({ error });
+      const status = (error as { status?: number }).status || 500;
+      res.status(status).json({ error });
     }
   },
 

@@ -1,7 +1,10 @@
+GRANT ALL PRIVILEGES ON DATABASE crypton TO postgres;
+
+-- Set the current database to "postgres"
+\c postgres;
+
 -- Drop the database if it exists
 DROP DATABASE IF EXISTS crypton;
-
-\c postgres;
 
 -- Create database "crypton"
 CREATE DATABASE crypton;
