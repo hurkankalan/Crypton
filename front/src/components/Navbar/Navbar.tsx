@@ -67,6 +67,9 @@ export default function Navbar() {
           <NavLink to="/login" className={styles.navlink}>
             Logout
           </NavLink>
+          <div className={styles.profile}>
+            Profile
+          </div>
         </div>
       </div>
       <Outlet />
