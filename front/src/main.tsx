@@ -16,6 +16,7 @@ import "./styles/scss/_global.scss";
 import Container from "./pages/Container/Container.tsx";
 import Article from "./components/Article/Article.tsx";
 import Login from "./components/Login/Login.tsx"
+import Profile from "./pages/Profile/Profile.tsx";
 // import "./styles/scss/flex.scss";
 
 /* Routes */
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
         path: "article",
         element: <Article />,
       },
+      {
+        path:"profile", 
+        element: <Profile/>
+      }
     ],
   },
 ]);
