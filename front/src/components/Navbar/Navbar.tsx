@@ -1,11 +1,8 @@
 import { NavLink, Outlet } from "react-router-dom";
 import styles from "./Navbar.module.scss";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 
-interface NavBarProps {
-  OpenProfile: boolean;
-  setOpenProfile: Dispatch<SetStateAction<boolean>>
-}
+
 
 
 
@@ -58,9 +55,12 @@ export const Navbar: React.FC = () => {
           <NavLink to="/login" className={styles.navlink}>
             Logout
           </NavLink>
-          <div className={styles.profile}>
-            <button onClick={()=>setOpenProfile(!OpenProfile)}>Profile</button>
-          </div>
+          <NavLink to="/home/profile" className={styles.navlink}>
+            <div className={styles.profile}>
+              {/* A CHANGER PAR LE NOM DE L'UTILISATEUR */}
+              <div className={styles.name}>John Doe</div> 
+            </div>
+          </NavLink>
         </div>
       </div>
       <Outlet />
