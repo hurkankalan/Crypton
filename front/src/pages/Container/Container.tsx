@@ -1,31 +1,28 @@
-import { useEffect, useState } from "react";
+import { useLocation, useOutlet } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
-import {Navbar} from '../../components/Navbar/Navbar';
+import { Navbar } from '../../components/Navbar/Navbar';
 import styles from './Container.module.scss';
+import { useEffect } from 'react';
 
 export default function Container() {
-
-  const [open, setOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    console.log(open);
-  }, [open]);
+    console.log(location);
+  }, [location]);
 
   return (
     <>
-    <div className={styles.container}>
-        <div className={styles.Popup}>
-            {open ? (
-              <div>hello</div>
-            ) : null}
-        </div>
+      <div className={styles.container}>
         <div className={styles.NavBar}>
-            <Navbar OpenProfile={open} setOpenProfile={setOpen}/>
+          <Navbar />
         </div>
-        <div className={styles.Footer}>
-            <Footer theme="white"/>
-        </div>
-    </div>
+        {location.pathname !== "/home/profile" ? (
+          <div className={styles.Footer}>
+            <Footer theme="white" />
+          </div>) : null
+        }
+      </div>
     </>
   );
 }
