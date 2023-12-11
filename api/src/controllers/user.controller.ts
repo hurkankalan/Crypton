@@ -216,7 +216,7 @@ const userControllers = {
         { expiresIn: "24h" }
       );
 
-      res.cookie("token", token, { httpOnly: true });
+      res.cookie("token", token);
 
       res.sendStatus(201);
     } catch (error) {

@@ -17,13 +17,14 @@ import "./styles/scss/helper.scss";
 import "./styles/scss/reset.scss";
 import Container from "./pages/Container/Container.tsx";
 import Article from "./components/Article/Article.tsx";
+import Login from "./components/Login/Login.tsx"
 // import "./styles/scss/flex.scss";
 
 /* Routes */
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div></div>, // AJOUTER LA PAGE QUI ENGLOBE LE LOGIN ET REGISTER ICI
+    element: <Login />, // AJOUTER LA PAGE QUI ENGLOBE LE LOGIN ET REGISTER ICI
   },
   {
     path: "/home",

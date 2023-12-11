@@ -2,13 +2,15 @@ import axios from 'axios';
 
 
 
-const API_URL = 'http://localhost:5000/users/';
+const API_URL = 'http://localhost:8000/users/';
 
 const Api = axios.create({
     baseURL: API_URL,
     headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : true
     },
+    withCredentials:true
     });
 
 
@@ -19,23 +21,20 @@ export const register = async (username: string, email: string, password: string
             email,
             password,
         });
-        console.log(response.data);
-
+        return response.data;
     } catch (error) {
         console.log(error);
     }
 };
 
-export const login = async (username: string, password: string) => {
+export const login = async (email: string, password: string) => {
     try {
         const response = await Api.post('login', {
-            username,
-            password,
-        });
-        if (response.data.accessToken) {
-            localStorage.setItem('user', JSON.stringify(response.data));
-        }
-        return response.data;
+            email,
+            password
+        })
+        console.log(response)
+        return response.status;
     } catch (error) {
         console.log(error);
     }
