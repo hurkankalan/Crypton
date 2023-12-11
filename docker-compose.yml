@@ -5,11 +5,11 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: hurkankalan24
-      POSTGRES_DB: crypton
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
-      - 5432:5432
+      - ${DB_PORT}:${DB_PORT}
     volumes:
       - crypton-db-data:/var/lib/postgresql/data
       - ./api/src/database/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -22,10 +22,23 @@ services:
       context: ./api
       dockerfile: dockerfile
     ports:
-      - 8000:8000
+      - ${API_PORT}:${API_PORT}
     volumes:
       - type: bind
         source: ./api/src
-        target: /app/src
+        target: /api/src
+
+  front:
+    container_name: crypton-front
+    build:
+      context: ./front
+      dockerfile: dockerfile
+    ports:
+      - ${FRONT_PORT}:${FRONT_PORT}
+    volumes:
+      - type: bind
+        source: ./front/src
+        target: /front/src
+        
 volumes:
   crypton-db-data:

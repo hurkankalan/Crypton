@@ -1,6 +1,6 @@
 FROM node:alpine
 
-WORKDIR /api
+WORKDIR /front
 
 COPY package*.json .
 
@@ -8,8 +8,6 @@ RUN npm install
 
 COPY ./src .
 
-COPY .env .
-
-EXPOSE 8000
+EXPOSE 3000
 
 CMD [ "npm", "run", "dev" ]
