@@ -58,8 +58,11 @@ export const Navbar: React.FC = () => {
           <NavLink to="/home/profile" className={styles.navlink}>
             <div className={styles.profile}>
               {/* A CHANGER PAR LE NOM DE L'UTILISATEUR */}
-              <div className={styles.name}>John Doe</div> 
+              <div className={styles.name}>John Doe</div>
             </div>
+          </NavLink>
+          <NavLink to="/login" className={styles.navlink}>
+            Logout
           </NavLink>
         </div>
       </div>
