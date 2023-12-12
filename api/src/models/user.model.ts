@@ -1,13 +1,13 @@
 import pool from "../database/database.config";
 import { QueryResult } from "pg";
-import { User, UserGoogle, NewUser } from "../types/User";
+import { User, UserGoogle } from "../types/User";
 
 const userModels = {
   getAllUsers(): Promise<QueryResult<User>> {
     return pool.query("SELECT * FROM users");
   },
 
-  getUserById(id: string): Promise<QueryResult<User>> {
+  getUserById(id: number): Promise<QueryResult<User>> {
     return pool.query("SELECT * FROM users WHERE id = $1", [id]);
   },
 
@@ -15,21 +15,21 @@ const userModels = {
     return pool.query("SELECT * FROM users WHERE email = $1", [email]);
   },
 
-  insertUser(user: NewUser): Promise<QueryResult<NewUser>> {
+  insertUser(user: User): Promise<QueryResult<User>> {
     return pool.query(
       "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)",
       [user.username, user.email, user.password]
     );
   },
 
-  updateUser(user: NewUser, id: number): Promise<QueryResult<User>> {
+  updateUser(user: User): Promise<QueryResult<User>> {
     return pool.query(
-      "UPDATE users SET username = $1, email = $2, password = $3 WHERE id = $4",
-      [user.username, user.email, user.password, id]
+      "UPDATE users SET username = $1, email = $2, password = $3, currency = $4 WHERE id = $5",
+      [user.username, user.email, user.password, user.currency, user.id]
     );
   },
 
-  deleteUser(id: string): Promise<QueryResult<User>> {
+  deleteUser(id: number): Promise<QueryResult<User>> {
     return pool.query("DELETE FROM users WHERE id = $1", [id]);
   },
 

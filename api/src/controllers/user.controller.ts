@@ -3,7 +3,8 @@ import jwt from "jsonwebtoken";
 import { hashPassword } from "../utils/hashPassword";
 import { comparePassword } from "../utils/comparePassword";
 import userModels from "../models/user.model";
-import { NewUser } from "../types/User";
+import walletModels from "../models/wallet.model";
+import { User } from "../types/User";
 
 const userControllers = {
   async allUsers(req: Request, res: Response) {
@@ -11,10 +12,11 @@ const userControllers = {
       const users = await userModels.getAllUsers();
 
       res.status(200).json(users.rows);
+      return;
     } catch (error) {
       console.error(error);
-      const status = (error as { status?: number }).status || 500;
-      res.status(status).json({ error });
+      res.status(500).json({ error });
+      return;
     }
   },
 
@@ -22,46 +24,51 @@ const userControllers = {
     const { id } = req.params;
 
     if (!id) {
-      throw { status: 400, message: "One or more params are mising in URL" };
+      res.status(400).json({ error: "One or more params are mising in URL" });
+      return;
     }
 
     try {
-      const user = await userModels.getUserById(id);
+      const user = await userModels.getUserById(parseInt(id));
 
       if (!user.rows[0]) {
-        throw { status: 404, message: "User not found" };
+        res.status(404).json({ error: "User not found" });
+        return;
       }
 
       res.status(200).json(user.rows);
+      return;
     } catch (error) {
       console.error(error);
-      const status = (error as { status?: number }).status || 500;
-      res.status(status).json({ error });
+      res.status(500).json({ error });
+      return;
     }
   },
 
   async updateUser(req: Request, res: Response) {
     const { id } = req.params;
-    const { username, email, password } = req.body;
+    const { username, email, password, currency } = req.body;
 
     if (!id) {
-      throw { status: 400, message: "One or more params are mising in URL" };
+      res.status(400).json({ error: "One or more params are mising in URL" });
+      return;
     }
 
     for (const key in req.body) {
       if (!req.body[key]) {
-        throw {
-          status: 400,
-          message: "One or more data are missing in body's request",
-        };
+        res
+          .status(400)
+          .json({ error: "One or more data are missing in body's request" });
+        return;
       }
     }
 
     try {
-      const oldUserInfos = await userModels.getUserById(id);
+      const oldUserInfos = await userModels.getUserById(parseInt(id));
 
       if (!oldUserInfos.rows[0]) {
-        throw { status: 404, message: "User not found" };
+        res.status(404).json({ error: "User not found" });
+        return;
       }
 
       const passwordMatch = await comparePassword(
@@ -72,11 +79,16 @@ const userControllers = {
       if (
         username === oldUserInfos.rows[0].username &&
         email === oldUserInfos.rows[0].email &&
-        passwordMatch
+        passwordMatch &&
+        currency === oldUserInfos.rows[0].currency
       ) {
-        throw { status: 304, message: "No changes detected, user not updated" };
+        res
+          .status(304)
+          .json({ error: "No changes detected, user not updated" });
+        return;
       } else {
-        const newUserInfos: NewUser = {
+        const newUserInfos = {
+          id: oldUserInfos.rows[0].id,
           username:
             username !== oldUserInfos.rows[0].username
               ? username
@@ -88,23 +100,26 @@ const userControllers = {
           password: passwordMatch
             ? oldUserInfos.rows[0].password
             : await hashPassword(password),
+          currency:
+            currency !== oldUserInfos.rows[0].currency
+              ? currency
+              : oldUserInfos.rows[0].currency,
         };
 
-        const newUser = await userModels.updateUser(
-          newUserInfos,
-          oldUserInfos.rows[0].id
-        );
+        const newUser = await userModels.updateUser(newUserInfos);
 
         if (newUser.rowCount === 0) {
-          throw { status: 500, message: "User not updated" };
+          res.status(500).json({ error: "User not updated" });
+          return;
         } else {
-          res.sendStatus(201);
+          res.status(201).json({ data: newUser });
+          return;
         }
       }
     } catch (error) {
       console.error(error);
-      const status = (error as { status?: number }).status || 500;
-      res.status(status).json({ error });
+      res.status(500).json({ error });
+      return;
     }
   },
 
@@ -112,25 +127,26 @@ const userControllers = {
     const { id } = req.params;
 
     try {
-      const user = await userModels.getUserById(id);
+      const user = await userModels.getUserById(parseInt(id));
 
       if (!user.rows[0]) {
-        throw { status: 404, message: "User not found" };
+        res.status(404).json({ error: "User not found" });
+        return;
       }
 
-      const deleteUser = await userModels.deleteUser(id);
+      const deleteUser = await userModels.deleteUser(parseInt(id));
 
       if (deleteUser.rowCount === 0) {
-        throw { status: 500, message: "User not deleted" };
+        res.status(500).json({ error: "User not deleted" });
+        return;
       } else {
-        res.sendStatus(204);
+        res.status(200).json({ message: "User is deleted" });
+        return;
       }
-
-      res.sendStatus(204);
     } catch (error) {
       console.error(error);
-      const status = (error as { status?: number }).status || 500;
-      res.status(status).json({ error });
+      res.status(500).json({ error });
+      return;
     }
   },
 
@@ -139,10 +155,10 @@ const userControllers = {
 
     for (const key in req.body) {
       if (!req.body[key]) {
-        throw {
-          status: 400,
-          message: "One or more data are missing in the body",
-        };
+        res
+          .status(400)
+          .json({ error: "One or more data are missing in the body" });
+        return;
       }
     }
 
@@ -150,12 +166,14 @@ const userControllers = {
       const user = await userModels.getUserByEmail(email);
 
       if (user.rows[0]) {
-        throw { status: 409, message: "Email already exist" };
+        res.status(409).json({ error: "Email already exist" });
+        return;
       }
 
       const hashedPassword = await hashPassword(password);
 
-      const newUser: NewUser = {
+      const newUser: User = {
+        id: 0,
         username,
         email,
         password: hashedPassword,
@@ -164,14 +182,21 @@ const userControllers = {
       const createdUser = await userModels.insertUser(newUser);
 
       if (createdUser.rowCount === 0) {
-        throw { status: 500, message: "User not created" };
+        res.status(500).json({ error: "User not created" });
+        return;
       } else {
-        res.sendStatus(201);
+        const user = await userModels.getUserByEmail(email);
+        const wallet = await walletModels.createWallet(user.rows[0].id);
+
+        console.log({ user, wallet });
+
+        res.status(201).json({ data: user });
+        return;
       }
     } catch (error) {
       console.error(error);
-      const status = (error as { status?: number }).status || 500;
-      res.status(status).json({ error });
+      res.status(500).json({ error });
+      return;
     }
   },
 
@@ -180,10 +205,9 @@ const userControllers = {
 
     for (const key in req.body) {
       if (!req.body[key]) {
-        throw {
-          status: 400,
-          message: "One or more data are missing in the body",
-        };
+        res
+          .status(400)
+          .json({ error: "One or more data are missing in the body" });
       }
     }
 
@@ -191,7 +215,8 @@ const userControllers = {
       const user = await userModels.getUserByEmail(email);
 
       if (!user.rows[0]) {
-        throw { status: 404, message: "User not found" };
+        res.status(404).json({ error: "User not found" });
+        return;
       }
 
       const passwordMatch = await comparePassword(
@@ -200,11 +225,13 @@ const userControllers = {
       );
 
       if (!passwordMatch) {
-        throw { status: 401, message: "Password incorrect" };
+        res.status(404).json({ error: "Password incorrect" });
+        return;
       }
 
       if (!process.env.PRIVATE_KEY) {
-        throw { status: 401, message: "Password incorrect" };
+        res.status(404).json({ error: "Private key is missing" });
+        return;
       }
 
       const token = jwt.sign(
@@ -216,19 +243,20 @@ const userControllers = {
         { expiresIn: "24h" }
       );
 
-      res.cookie("token", token);
-
-      res.sendStatus(201);
+      res.cookie("token", token, { httpOnly: true });
+      res.status(200).json({ message: "User is connected" });
+      return;
     } catch (error) {
       console.error(error);
-      const status = (error as { status?: number }).status || 500;
-      res.status(status).json({ error });
+      res.status(500).json({ error });
+      return;
     }
   },
 
   async logout(req: Request, res: Response) {
     res.clearCookie("token");
-    res.end();
+    res.status(200).json({ message: "User is disconnected" });
+    return;
   },
 };
 
