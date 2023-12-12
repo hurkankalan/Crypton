@@ -2,7 +2,6 @@ import { useLocation, useOutlet } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import { Navbar } from '../../components/Navbar/Navbar';
 import styles from './Container.module.scss';
-import { useEffect } from 'react';
 
 export default function Container() {
   const location = useLocation();
