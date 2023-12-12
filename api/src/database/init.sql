@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS cryptos_users (
   PRIMARY KEY (cryptos_id, users_id)
 );
 
-
 -- Create table articles
 CREATE TABLE IF NOT EXISTS articles (
   id VARCHAR(500) PRIMARY KEY,
@@ -63,7 +62,8 @@ CREATE TABLE IF NOT EXISTS wallet (
   FOREIGN KEY (usersId) REFERENCES users(id)
 );
 
-CREATE TABLE If NOT EXISTS rss (
+-- CREATE TABLE rss
+CREATE TABLE IF NOT EXISTS rss (
   id SERIAL PRIMARY KEY,
   url VARCHAR(500) NOT NULL
 );

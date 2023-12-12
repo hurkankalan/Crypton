@@ -3,9 +3,10 @@ export type User = {
   username: string;
   email: string;
   password: string;
-  role: "user" | "admin";
+  role?: "user" | "admin";
+  currency?: "EUR" | "USD";
+  accountAmount?: number;
+  btcAmount?: number;
 };
-
-export type NewUser = Omit<User, "id" | "role">;
 
 export type UserGoogle = Omit<User, "role" | "password" | "id">;
