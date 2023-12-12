@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './Profile.module.scss';
 import { IoCloseCircleSharp } from "react-icons/io5";
+import { toast } from 'react-toastify';
 
 const Profile: React.FC = () => {
     const img = "https://www.w3schools.com/howto/img_avatar.png";
@@ -19,7 +20,11 @@ const Profile: React.FC = () => {
                 setUsername(e.target.value);
                 break;
             case "email":
-                setEmail(e.target.value);
+                if (e.target.value.includes("@")){ //a changer avec une vrai modif de mail
+                    setEmail(e.target.value);
+                }else{
+                    setEmail("");
+                }
                 break;
             case "password":
                 setPassword(e.target.value);
@@ -32,10 +37,16 @@ const Profile: React.FC = () => {
 
     const handleDeleteKeyword = (keyword: string) => {
         // logic to delete keyword
+        console.log(keyword);
     };
 
     const handleSubmit = () => { 
         // logic to submit form
+        if (username === "" || email === "" || password === ""){
+            toast.error("Please fill all the fields with valid informations");
+        }else{
+            toast.success("Profile updated successfully");
+        }
     }
     return (
         <div className={styles.container}>
@@ -47,18 +58,18 @@ const Profile: React.FC = () => {
             </div>
             <div className={styles.form}>
                 <h1 className={styles.title}>Edit your profile</h1>
-                <form className={styles.formContent}>
+                <div className={styles.formContent}>
                     <label className={styles.label}>
                         Username
                         <input type="text" name="username" className={styles.input} onChange={handleFrom}/>
                     </label>
                     <label className={styles.label}>
                         Email
-                        <input type="email" name="email" className={styles.input} />
+                        <input type="email" name="email" className={styles.input} onChange={handleFrom}/>
                     </label>
                     <label className={styles.label}>
                         Password
-                        <input type="password" name="password" className={styles.input} />
+                        <input type="password" name="password" className={styles.input} onChange={handleFrom}/>
                     </label>
                     <label className={styles.label}>
                         Keywords
@@ -71,8 +82,8 @@ const Profile: React.FC = () => {
                             ))}
                         </div>
                     </label>
-                    <button type="submit" className={styles.submitButton}>Save</button>
-                </form>
+                    <button className={styles.submitButton} onClick={handleSubmit}>Save</button>
+                </div>
             </div>
         </div>
     );

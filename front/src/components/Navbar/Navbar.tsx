@@ -41,39 +41,17 @@ export const Navbar: React.FC = () => {
           </div>
         </div>
         <div className={styles.navcontentRight}>
-          <div className={styles.dropdown}>
-            <button className={styles.button_drop} onClick={handleOpen}>
-              EN/FR
-            </button>
-            {open ? (
-              <ul className={styles.menu}>
-                <li className={styles.menuItem}>
-                  <button
-                    className={styles.button_drop}
-                    onClick={handleMenuOne}
-                  >
-                    FR
-                  </button>
-                </li>
-                <li className={styles.menuItem}>
-                  <button
-                    className={styles.button_drop}
-                    onClick={handleMenuTwo}
-                  >
-                    EN
-                  </button>
-                </li>
-              </ul>
-            ) : null}
-          </div>
-          <NavLink to="/login" className={styles.navlink}>
-            Logout
+          <NavLink to="" className={styles.navlink}>
+            Wallet
           </NavLink>
           <NavLink to="/home/profile" className={styles.navlink}>
             <div className={styles.profile}>
               {/* A CHANGER PAR LE NOM DE L'UTILISATEUR */}
-              <div className={styles.name}>John Doe</div> 
+              <div className={styles.name}>John Doe</div>
             </div>
+          </NavLink>
+          <NavLink to="/login" className={styles.navlink}>
+            Logout
           </NavLink>
         </div>
       </div>
