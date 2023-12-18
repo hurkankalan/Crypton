@@ -1,6 +1,6 @@
 import cron from "node-cron";
 import Parser from "rss-parser";
-import { Article } from "../types/article";
+import { Article } from "../types/Article";
 import articleModels from "../models/article.model";
 import rssModels from "../models/rss.model";
 

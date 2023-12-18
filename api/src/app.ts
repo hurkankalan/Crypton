@@ -2,6 +2,7 @@ import express from "express";
 import { Request, Response } from "express";
 import cookie from "cookie-parser";
 import userRouter from "./routes/index.route";
+import cors from 'cors';
 import { getPressReview } from "./utils/rssArticles";
 import cors from "cors"; 
 
