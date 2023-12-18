@@ -14,7 +14,7 @@ CREATE DATABASE crypton;
 
 -- Create table cryptos
 CREATE TABLE IF NOT EXISTS cryptos (
-  id SERIAL PRIMARY KEY,
+  id VARCHAR(255) PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   currentPrice FLOAT NOT NULL,
   openingPrice FLOAT NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Create table cryptos_users
 CREATE TABLE IF NOT EXISTS cryptos_users (
-  cryptos_id INTEGER NOT NULL,
+  cryptos_id VARCHAR(255) NOT NULL,
   users_id INTEGER NOT NULL,
   FOREIGN KEY (cryptos_id) REFERENCES cryptos(id),
   FOREIGN KEY (users_id) REFERENCES users(id),
