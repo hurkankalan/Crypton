@@ -16,7 +16,6 @@ const Profile: React.FC = () => {
     const { username } = useGlobalContext(); 
 
     const handleFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.name);
         switch (e.target.name) {
             case "username":
                 setNewUsername(e.target.value);
