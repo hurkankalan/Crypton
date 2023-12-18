@@ -8,16 +8,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 /* Components */
 import Home from "./pages/Home";
 import MarketTable from "./components/market-tables/MarketTable.tsx";
+import { ToastContainer } from 'react-toastify';
 
 /* Styles */
 import "./styles/scss/app.scss";
 import "./styles/scss/_global.scss";
-import "./styles/scss/grid.scss";
-import "./styles/scss/helper.scss";
-import "./styles/scss/reset.scss";
+import 'react-toastify/dist/ReactToastify.css';
 import Container from "./pages/Container/Container.tsx";
 import Article from "./components/Article/Article.tsx";
 import Login from "./components/Login/Login.tsx"
+import Profile from "./pages/Profile/Profile.tsx";
 // import "./styles/scss/flex.scss";
 
 /* Routes */
@@ -39,6 +39,10 @@ const router = createBrowserRouter([
         path: "article",
         element: <Article />,
       },
+      {
+        path:"profile", 
+        element: <Profile/>
+      }
     ],
   },
 ]);
@@ -46,5 +50,6 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    <ToastContainer />
   </React.StrictMode>
 );
