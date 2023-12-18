@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS users (
   password VARCHAR(255) NOT NULL,
   role VARCHAR(255) NOT NULL DEFAULT 'user',
   currency VARCHAR(255) NOT NULL DEFAULT 'EUR'
+  connectType BOOLEAN NOT NULL DEFAULT 0 -- 0 = local, 1 = discord
 );
 
 -- Create table cryptos_users

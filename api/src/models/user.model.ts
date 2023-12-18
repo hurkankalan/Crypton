@@ -34,10 +34,10 @@ const userModels = {
   },
 
   insertUserWithDiscord(user: User): Promise<QueryResult<UserDiscord>> {
-    return pool.query("INSERT INTO users (username, email) VALUES ($1, $2)", [
-      user.username,
-      user.email,
-    ]);
+    return pool.query(
+      "INSERT INTO users (username, email, connectType) VALUES ($1, $2, $3)",
+      [user.username, user.email, 1]
+    );
   },
 
   updateDefaultCurrency(currency: string, id: number): Promise<QueryResult> {
