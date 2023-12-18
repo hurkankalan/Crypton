@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import backgroundArticleImage from "./img/background-article.jpg";
+import bitcoinImage from "./img/bitcoin.png";
+import bitcoinImage2 from "./img/bitcoin-bezahlen-scaled-546a98.jpg";
+import bitcoinImage3 from "./img/bitcoin3.jpg";
+import goldVsBitcoinImage from "./img/gold-vs-crypto.png";
+import virtualBitcoinImage from "./img/Monnaie-virtuelle-bitcoin.png";
+import cryptomonnaie from "./img/cryptomonnaie.jpg";
+import crypto from "./img/crypto.jpeg";
+import bitcoin_smartphone from "./img/bitcoin_smartphone.jpg";
+import blockchain from "./img/blockchain.jpeg";
 import "./Article.scss";
 
 // Nombre d'articles à afficher par page
@@ -30,21 +40,29 @@ const Article: React.FC = () => {
     fetchArticles(); // Appel de la fonction pour récupérer les articles
   }, []);
 
-  const extractImageUrl = (htmlContent: string) => {
-    const regex = /<img.*?src=["'](.*?)["']/; // Regex pour trouver la balise img et capturer l'URL
-    const match = htmlContent.match(regex);
-    return match ? match[1] : null; // Retourne l'URL de l'image ou null si aucune image n'est trouvée
+  const getRandomImage = () => {
+    const images = [
+      backgroundArticleImage,
+      bitcoinImage,
+      bitcoinImage2,
+      goldVsBitcoinImage,
+      virtualBitcoinImage,
+      bitcoinImage3,
+      cryptomonnaie,
+      crypto,
+      bitcoin_smartphone,
+      blockchain,
+    ];
+    return images[Math.floor(Math.random() * images.length)];
   };
 
   const removeImageFromSummary = (htmlContent: string) => {
-    const regex = /<img.*?src=["'].*?["'].*?>/; // Regex pour trouver et retirer la balise img
-    return htmlContent.replace(regex, ""); // Remplace la balise img par une chaîne vide
+    // Cette regex va chercher toutes les occurrences de balises <img> et les supprimer
+    return htmlContent.replace(/<img .*?>/g, "");
   };
 
-  // Calcul de l'index du dernier et du premier article pour la pagination
   const indexOfLastArticle = currentPage * ArticlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - ArticlesPerPage;
-  // Obtention des articles actuels à afficher sur la page
   const currentArticles = articles.slice(
     indexOfFirstArticle,
     indexOfLastArticle
@@ -78,9 +96,11 @@ const Article: React.FC = () => {
               >
                 <article className="blog__3">
                   <div className="thumb">
-                    <Link to={article.pageUrl}>
-                      <img src={extractImageUrl(article.summary)} alt="" />
-                    </Link>
+                    <img
+                      src={getRandomImage()}
+                      alt=""
+                      className="article-image"
+                    />
                   </div>
                   <div className="content">
                     <div className="bl__author">
@@ -112,7 +132,6 @@ const Article: React.FC = () => {
           </div>
           <div className="row mt--40">
             <div className="col-lg-12">
-              {/* Pagination */}
               <ul className="dg__pagination d-flex">
                 {[
                   ...Array(Math.ceil(articles.length / ArticlesPerPage)).keys(),
@@ -123,7 +142,7 @@ const Article: React.FC = () => {
                         e.preventDefault();
                         paginate(number + 1);
                       }}
-                      href="#!"
+                      href=""
                     >
                       {number + 1}
                     </a>
@@ -137,5 +156,4 @@ const Article: React.FC = () => {
     </>
   );
 };
-
 export default Article;
