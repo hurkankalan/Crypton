@@ -1,9 +1,10 @@
 /* React */
-import React from "react";
+import React, { useState } from "react";
 
 /* React Router Dom */
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { MyGlobalContext } from './context/context.ts'
 
 /* Components */
 import Home from "./pages/Home";
@@ -22,6 +23,8 @@ import Protected from "./middlewares/Protected.tsx";
 // import "./styles/scss/flex.scss";
 
 /* Routes */
+
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,9 +53,18 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-    <ToastContainer />
-  </React.StrictMode>
-);
+
+const App: React.FC = () => {
+  const [username, setUsername] = useState("hello");
+
+  return (
+    <React.StrictMode>
+      <MyGlobalContext.Provider value={{ username, setUsername }}>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </MyGlobalContext.Provider>
+    </React.StrictMode>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById("root")!).render(<App />);
