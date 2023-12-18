@@ -82,7 +82,7 @@ const LoginRegister = () => {
                 setErrorMessage('Please enter a password.');
                 return;
             }
-            const content = await register(emailCreate, passwordCreate, usernameCreate)
+            const content = await register(usernameCreate, emailCreate,passwordCreate)
             setErrorMessage('');
             if (!content){
                 setErrorMessage('Registration failed');
@@ -153,7 +153,7 @@ const LoginRegister = () => {
                                 <Tab.Pane eventKey="register">
                                     <div className="single__account">
                                         <div className="input__box">
-                                            <span>Username</span>
+                                            <span>Usernamedd</span>
                                             <input type="text" value={usernameCreate} onChange={handleUsernameCChange}/>
                                         </div>
                                         <div className="input__box">
