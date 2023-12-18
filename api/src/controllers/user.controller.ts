@@ -219,6 +219,11 @@ const userControllers = {
         return;
       }
 
+      if (user.rows[0].connectType === 1) {
+        res.status(403).json({ error: "You can't connect with this method" });
+        return;
+      }
+
       const passwordMatch = await comparePassword(
         password,
         user.rows[0].password
@@ -237,7 +242,10 @@ const userControllers = {
       const token = jwt.sign(
         {
           id: user.rows[0].id,
+          username: user.rows[0].username,
           role: user.rows[0].role,
+          connectType: user.rows[0].connectType,
+          currency: user.rows[0].currency,
         },
         process.env.PRIVATE_KEY,
         { expiresIn: "24h" }
