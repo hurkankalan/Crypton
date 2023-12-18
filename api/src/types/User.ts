@@ -9,4 +9,4 @@ export type User = {
   btcAmount?: number;
 };
 
-export type UserGoogle = Omit<User, "role" | "password" | "id">;
+export type UserDiscord = Omit<User, "role" | "password" | "id">;

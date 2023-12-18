@@ -253,6 +253,68 @@ const userControllers = {
     }
   },
 
+  async loginWithDiscord(req: Request, res: Response) {
+    const { username, email } = req.body;
+
+    for (const key in req.body) {
+      if (!req.body[key]) {
+        res
+          .status(400)
+          .json({ error: "One or more data are missing in the body" });
+      }
+    }
+
+    try {
+      const user = await userModels.getUserByEmail(email);
+
+      if (!user.rows[0]) {
+        const newUser: User = {
+          id: 0,
+          username,
+          email,
+          password: "",
+        };
+
+        const createdUser = await userModels.insertUserWithDiscord(newUser);
+
+        if (createdUser.rowCount === 0) {
+          res.status(500).json({ error: "User not created" });
+          return;
+        } else {
+          const user = await userModels.getUserByEmail(email);
+          const wallet = await walletModels.createWallet(user.rows[0].id);
+
+          console.log({ user, wallet });
+
+          res.status(201).json({ data: user });
+          return;
+        }
+      }
+
+      if (!process.env.PRIVATE_KEY) {
+        res.status(404).json({ error: "Private key is missing" });
+        return;
+      }
+
+      const token = jwt.sign(
+        {
+          id: user.rows[0].id,
+          role: user.rows[0].role,
+        },
+        process.env.PRIVATE_KEY,
+        { expiresIn: "24h" }
+      );
+
+      res.cookie("token", token);
+      res.status(200).json({ message: "User is connected" });
+      return;
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error });
+      return;
+    }
+  },
+
   async logout(req: Request, res: Response) {
     res.clearCookie("token");
     res.status(200).json({ message: "User is disconnected" });
@@ -288,6 +350,31 @@ const userControllers = {
         return;
       } else {
         res.status(200).json({ data: updatedUser });
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error });
+      return;
+    }
+  },
+
+  async userByEmail(req: Request, res: Response) {
+    const { email } = req.params;
+
+    if (!email) {
+      res.status(400).json({ error: "One or more params are mising in URL" });
+      return;
+    }
+
+    try {
+      const user = await userModels.getUserByEmail(email);
+
+      if (user.rows[0]) {
+        res.status(200).json({ message: "User is exist" });
+        return;
+      } else {
+        res.status(404).json({ error: "User not exist" });
         return;
       }
     } catch (error) {
