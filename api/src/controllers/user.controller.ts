@@ -243,7 +243,7 @@ const userControllers = {
         { expiresIn: "24h" }
       );
 
-      res.cookie("token", token, { httpOnly: true });
+      res.cookie("token", token);
       res.status(200).json({ message: "User is connected" });
       return;
     } catch (error) {

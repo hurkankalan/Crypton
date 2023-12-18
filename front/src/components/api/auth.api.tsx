@@ -33,7 +33,7 @@ export const login = async (email: string, password: string) => {
             email,
             password
         })
-        console.log(response)
+        localStorage.setItem('user', JSON.stringify(response.data));
         return response.status;
     } catch (error) {
         console.log(error);
@@ -43,6 +43,7 @@ export const login = async (email: string, password: string) => {
 export const logout = async () => {
     try {
         await Api.post('logout');
+        localStorage.removeItem('user');
     } catch (error) {
         console.log(error);
     }
