@@ -7,6 +7,11 @@ const allUserRouter = Router();
 
 allUserRouter.get("/", verifyToken, isAdmin, userControllers.allUsers);
 allUserRouter.get("/:id", verifyToken, userControllers.userById);
+allUserRouter.put(
+  "/:id/currency",
+  verifyToken,
+  userControllers.updateDefaultCurrency
+);
 allUserRouter.put("/:id", verifyToken, userControllers.updateUser);
 allUserRouter.delete("/:id", verifyToken, userControllers.deleteUser);
 allUserRouter.post("/register", userControllers.register);

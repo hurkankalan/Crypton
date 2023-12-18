@@ -243,7 +243,7 @@ const userControllers = {
         { expiresIn: "24h" }
       );
 
-      res.cookie("token", token, { httpOnly: true });
+      res.cookie("token", token);
       res.status(200).json({ message: "User is connected" });
       return;
     } catch (error) {
@@ -257,6 +257,44 @@ const userControllers = {
     res.clearCookie("token");
     res.status(200).json({ message: "User is disconnected" });
     return;
+  },
+
+  async updateDefaultCurrency(req: Request, res: Response) {
+    const { currency } = req.body;
+    const { id } = req.params;
+
+    if (!currency || !id) {
+      res
+        .status(400)
+        .json({ error: "One or more params are mising in URL or in body" });
+      return;
+    }
+
+    try {
+      const user = await userModels.getUserById(parseInt(id));
+
+      if (!user.rows[0]) {
+        res.status(404).json({ error: "User not found" });
+        return;
+      }
+
+      const updatedUser = await userModels.updateDefaultCurrency(
+        currency,
+        parseInt(id)
+      );
+
+      if (updatedUser.rowCount === 0) {
+        res.status(500).json({ error: "User not updated" });
+        return;
+      } else {
+        res.status(200).json({ data: updatedUser });
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error });
+      return;
+    }
   },
 };
 

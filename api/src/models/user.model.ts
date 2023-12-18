@@ -39,6 +39,13 @@ const userModels = {
       [user.username, user.email]
     );
   },
+
+  updateDefaultCurrency(currency: string, id: number): Promise<QueryResult> {
+    return pool.query("UPDATE users SET currency = $1 WHERE id = $2", [
+      currency,
+      id,
+    ]);
+  },
 };
 
 export default userModels;
