@@ -7,7 +7,6 @@
 @use "./abstracts/" as *;
 
 @import "../documentation/assets/bootstrap.min.css";
-@import "../documentation/style.css";
 // @import "../dist/aos.css";
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
@@ -67,8 +66,7 @@ button {
 ul,
 li {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+
 }
 p {
   margin: 0;

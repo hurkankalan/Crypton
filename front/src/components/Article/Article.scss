@@ -42,4 +42,21 @@
       }
     }
   }
+
+  .thumb {
+    padding-bottom: 1.5em;
+  }
+
+  .article-image {
+    width: 100%;        // Largeur maximale à 100% du conteneur parent
+    height: 10em;       // Hauteur ajustée automatiquement pour maintenir le ratio
+    object-fit: cover;  // Garantit que l'image couvre entièrement la zone sans étirer
+    border-radius: 10px; // Optionnel, pour un style arrondi
+  }
+
+
+  .blog__3 {
+    margin-top: 2em;
+  }
+  
   

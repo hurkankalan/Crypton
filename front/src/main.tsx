@@ -8,15 +8,15 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 /* Components */
 import Home from "./pages/Home";
 import MarketTable from "./components/market-tables/MarketTable.tsx";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 
 /* Styles */
 import "./styles/scss/app.scss";
 import "./styles/scss/_global.scss";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import Container from "./pages/Container/Container.tsx";
 import Article from "./components/Article/Article.tsx";
-import Login from "./components/Login/Login.tsx"
+import Login from "./components/Login/Login.tsx";
 import Profile from "./pages/Profile/Profile.tsx";
 // import "./styles/scss/flex.scss";
 
@@ -40,13 +40,12 @@ const router = createBrowserRouter([
         element: <Article />,
       },
       {
-        path:"profile", 
-        element: <Profile/>
-      }
+        path: "profile",
+        element: <Profile />,
+      },
     ],
   },
 ]);
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <RouterProvider router={router} />

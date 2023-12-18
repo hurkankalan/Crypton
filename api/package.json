@@ -37,5 +37,8 @@
   },
   "devDependencies": {
     "@types/xml2js": "^0.4.14"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17"
   }
 }
