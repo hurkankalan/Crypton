@@ -18,6 +18,7 @@ import Container from "./pages/Container/Container.tsx";
 import Article from "./components/Article/Article.tsx";
 import Login from "./components/Login/Login.tsx";
 import Profile from "./pages/Profile/Profile.tsx";
+import Protected from "./middlewares/Protected.tsx";
 // import "./styles/scss/flex.scss";
 
 /* Routes */
@@ -28,7 +29,10 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: <Container />,
+    element:
+      <Protected>
+        <Container />
+      </Protected>,
     children: [
       { index: true, element: <Home /> },
       {
