@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import articleModels from "../models/article.model";
-import { Article } from "../types/Article";
+import { Article } from "../types/article";
 
 const articleControllers = {
   async getArticleById(req: Request, res: Response): Promise<void> {
