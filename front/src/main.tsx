@@ -20,6 +20,7 @@ import Article from "./components/Article/Article.tsx";
 import Login from "./components/Login/Login.tsx";
 import Profile from "./pages/Profile/Profile.tsx";
 import Protected from "./middlewares/Protected.tsx";
+import { Unprotected } from "./middlewares/Unprotected.tsx";
 // import "./styles/scss/flex.scss";
 
 /* Routes */
@@ -28,7 +29,10 @@ import Protected from "./middlewares/Protected.tsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />, // AJOUTER LA PAGE QUI ENGLOBE LE LOGIN ET REGISTER ICI
+    element: 
+    <Unprotected>
+      <Login />
+    </Unprotected>,
   },
   {
     path: "/home",
@@ -54,12 +58,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+
+
 const App: React.FC = () => {
-  const [username, setUsername] = useState("hello");
+  const [username, setUsername] = useState(" ");
+  const [token, setToken] = useState<string>("");
+  const value = { username, setUsername, setToken,token };
 
   return (
     <React.StrictMode>
-      <MyGlobalContext.Provider value={{ username, setUsername }}>
+      <MyGlobalContext.Provider value={value}>
         <RouterProvider router={router} />
         <ToastContainer />
       </MyGlobalContext.Provider>

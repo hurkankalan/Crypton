@@ -54,7 +54,7 @@ const LoginRegister = () => {
             const response = await login(emailInput,passwordInput)
             setErrorMessage('');
 
-            if (response==201) {
+            if (response==200) {
                 setErrorMessage('');
 
                 console.log('POST request successful');
