@@ -19,18 +19,19 @@ interface MyTokenPayload extends JwtPayload {
 const Protected: React.FC<Props> = ({ children }) => {
     const [cookies] = useCookies(["token"]);
     const [isLoading, setIsLoading] = useState(true);
-    const { setUsername,setToken,token } = useGlobalContext();
+    const { setUsername,setToken,token,setRole,role } = useGlobalContext();
 
 
     useEffect(() => {
-
         if (cookies.token) {
             const decodedToken = jwtDecode<MyTokenPayload>(cookies.token);
             setUsername(decodedToken.username);
+            setRole(decodedToken.role);
             setToken(cookies.token);
             Api.defaults.headers.common["jwt"] = cookies.token;
         } else {
             setToken("");
+            setUsername("");
         }
         setIsLoading(false);
     }, [cookies]);
@@ -39,7 +40,7 @@ const Protected: React.FC<Props> = ({ children }) => {
         return null; // on peut rajouter un spinner au cas ou ça prend longtemps
     }
 
-    if (!token) {
+    if (!token && role !== "guest") {
         return <Navigate to="/" />;
     }
 
