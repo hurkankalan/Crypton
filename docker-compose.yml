@@ -30,9 +30,7 @@ services:
 
   front:
     container_name: crypton-front
-    build:
-      context: ./front
-      dockerfile: dockerfile
+    build: ./front
     ports:
       - ${FRONT_PORT}:${FRONT_PORT}
     volumes:

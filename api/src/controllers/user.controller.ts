@@ -290,9 +290,7 @@ const userControllers = {
           return;
         } else {
           const user = await userModels.getUserByEmail(email);
-          const wallet = await walletModels.createWallet(user.rows[0].id);
-
-          console.log({ user, wallet });
+          await walletModels.createWallet(user.rows[0].id);
 
           res.status(201).json({ data: user });
           return;
