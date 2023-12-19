@@ -263,7 +263,6 @@ const userControllers = {
 
   async loginWithDiscord(req: Request, res: Response) {
     const { username, email } = req.body;
-
     for (const key in req.body) {
       if (!req.body[key]) {
         res
@@ -273,29 +272,25 @@ const userControllers = {
     }
 
     try {
-      const user = await userModels.getUserByEmail(email);
-
+      let user = await userModels.getUserByEmail(email);
       if (!user.rows[0]) {
         const newUser: User = {
           id: 0,
           username,
           email,
-          password: "",
+          password: "discord",
         };
-
         const createdUser = await userModels.insertUserWithDiscord(newUser);
-
         if (createdUser.rowCount === 0) {
           res.status(500).json({ error: "User not created" });
           return;
         } else {
           const user = await userModels.getUserByEmail(email);
           await walletModels.createWallet(user.rows[0].id);
-
-          res.status(201).json({ data: user });
-          return;
         }
       }
+      user = await userModels.getUserByEmail(email);
+
 
       if (!process.env.PRIVATE_KEY) {
         res.status(404).json({ error: "Private key is missing" });

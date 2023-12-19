@@ -63,7 +63,8 @@ const router = createBrowserRouter([
 const App: React.FC = () => {
   const [username, setUsername] = useState(" ");
   const [token, setToken] = useState<string>("");
-  const value = { username, setUsername, setToken,token };
+  const [role, setRole] = useState<string>("");
+  const value = { username, setUsername, setToken,token,role,setRole };
 
   return (
     <React.StrictMode>

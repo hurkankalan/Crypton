@@ -4,12 +4,16 @@ export type Global = {
   setUsername: (username: string) => void
   token: string
   setToken: (token: string) => void
+  role : string
+  setRole : (role : string) => void
 }
 export const MyGlobalContext = createContext<Global>({
 username: '',
 setUsername: () => {},
 token: '',
-setToken: () => {}
+setToken: () => {},
+role : '',
+setRole : () => {}
 })
 
 export const useGlobalContext = () => useContext(MyGlobalContext)
