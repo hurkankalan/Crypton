@@ -37,6 +37,12 @@ const articleModels = {
       const res = await pool.query(query, values);
       return res.rows;
   },
+
+  setVisibility: async (id: string, isVisibleToGuests: boolean): Promise<void> => {
+      const query = 'UPDATE articles SET isVisibleToGuests = $1 WHERE id = $2';
+      const values = [isVisibleToGuests, id];
+      await pool.query(query, values);
+  },
 };
 
 export default articleModels;
