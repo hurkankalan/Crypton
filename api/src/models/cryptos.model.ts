@@ -43,6 +43,7 @@ const cryptosModels = {
         const query = 'DELETE FROM cryptos WHERE id = $1';
         const values = [id];
         try {
+            await pool.query('DELETE FROM crypto_history WHERE crypto_id = $1', [id]);
             await pool.query(query, values);
         } catch (err) {
             console.error(err);

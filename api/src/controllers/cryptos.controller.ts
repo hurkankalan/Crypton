@@ -84,10 +84,11 @@ const articleControllers = {
       },
 
       async deleteCrypto(req: Request, res: Response) {
-        if (!req.params.id) {
-          throw { status: 400, message: "One or more params are mising in URL" };
-        }
         try {
+          if (!req.params.id) {
+            console.log(req.params);
+            throw { status: 400, message: "One or more params are mising in URL" };
+          }
           const id = decodeURIComponent(req.params.id);
           await cryptosModels.deleteCrypto(id);
           res.status(200).json({ message: "Crypto deleted" });
@@ -97,8 +98,6 @@ const articleControllers = {
           res.status(status).json({ error });
         }
       }
-
- 
 };
 
 export default articleControllers;
