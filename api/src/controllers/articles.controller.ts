@@ -27,8 +27,8 @@ const articleControllers = {
       if (!req.query.keyword) {
         articles = await articleModels.getAll();
       } else {
-        const keyword = req.query.keyword as string;
-        articles = await articleModels.getByKeyword(keyword);
+        const keywords = req.query.keyword as string;
+        articles = await articleModels.getByKeyword(keywords);
       }
       if (articles.length === 0) {
         throw { status: 404, message: "Articles not found" };
