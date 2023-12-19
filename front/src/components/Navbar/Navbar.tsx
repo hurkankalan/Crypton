@@ -1,28 +1,23 @@
 import { NavLink, Outlet } from "react-router-dom";
 import styles from "./Navbar.module.scss";
-import { useState } from "react";
+import { useGlobalContext } from '../../context/context.ts'
+import { logout } from "../api/auth.api.tsx";
 
 
 
 
 
 export const Navbar: React.FC = () => {
-  const [open, setOpen] = useState(false);
+  const { username } = useGlobalContext();
 
-  const handleOpen = () => {
-    setOpen(!open);
+  const handleLogout = async () => {
+    try{
+      await logout();
+    }catch(err){
+      console.log(err);
+    }
   };
-
-  const handleMenuOne = () => {
-    // do something
-    setOpen(false);
-  };
-
-  const handleMenuTwo = () => {
-    // do something
-    setOpen(false);
-  };
-
+  
   return (
     <div className={styles.container}>
       <div className={styles.navbar}>
@@ -48,11 +43,10 @@ export const Navbar: React.FC = () => {
           </NavLink>
           <NavLink to="/home/profile" className={styles.navlink}>
             <div className={styles.profile}>
-              {/* A CHANGER PAR LE NOM DE L'UTILISATEUR */}
-              <div className={styles.name}>John Doe</div>
+              <div className={styles.name}>{username}</div>
             </div>
           </NavLink>
-          <NavLink to="/login" className={styles.navlink}>
+          <NavLink  to={""} className={styles.navlink} onClick={handleLogout}>
             Logout
           </NavLink>
         </div>
