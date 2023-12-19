@@ -26,8 +26,20 @@ const Article: React.FC = () => {
     // Définition d'une fonction asynchrone pour récupérer les articles
     const fetchArticles = async () => {
       try {
+        // Récupérer les mots-clés du local storage
+        const storedKeywords = JSON.parse(
+          localStorage.getItem("keywords") || "[]"
+        );
+
+        // Utiliser le premier mot-clé si disponible
+        let url = "http://localhost:8000/articles/search";
+        if (storedKeywords.length > 0) {
+          const firstKeyword = storedKeywords[0];
+          url += `?keyword=${encodeURIComponent(firstKeyword)}`;
+        }
+
         // Appel de l'API pour récupérer les articles
-        const response = await fetch("http://localhost:8000/articles/search");
+        const response = await fetch(url);
         const data = await response.json(); // Transformation de la réponse en JSON
         setArticles(data); // Mise à jour de l'état 'articles' avec les données récupérées
         console.log(data); // Affiche les données dans la console
@@ -36,7 +48,6 @@ const Article: React.FC = () => {
         console.error("Erreur lors de la récupération des articles:", error);
       }
     };
-
     fetchArticles(); // Appel de la fonction pour récupérer les articles
   }, []);
 
@@ -63,19 +74,37 @@ const Article: React.FC = () => {
 
   const indexOfLastArticle = currentPage * ArticlesPerPage;
   const indexOfFirstArticle = indexOfLastArticle - ArticlesPerPage;
-  const currentArticles = articles.slice(
-    indexOfFirstArticle,
-    indexOfLastArticle
-  );
 
-  // Fonction pour changer de page
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  // S'assurer que 'articles' est un tableau avant d'essayer de le découper
+  const currentArticles = Array.isArray(articles)
+    ? articles.slice(indexOfFirstArticle, indexOfLastArticle)
+    : [];
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Gérer le cas où aucun article ne correspond au mot-clé
+  const isKeywordSearch = Array.isArray(articles) && articles.length === 0;
+  const storedKeywords = JSON.parse(localStorage.getItem("keywords") || "[]");
+  const keywordMessage = isKeywordSearch
+    ? `Aucun article correspondant au mot-clé "${storedKeywords[0]}" n'a été trouvé.`
+    : null;
+
+  const totalPages = Array.isArray(articles)
+    ? Math.ceil(articles.length / ArticlesPerPage)
+    : 0;
 
   return (
     <>
       <div className="ht__bradcaump__area">
         <div className="ht__bradcaump__container">
           <div className="container">
+            {keywordMessage && (
+              <div className="alert alert-info" role="alert">
+                {keywordMessage}
+              </div>
+            )}
             <div className="row">
               <div className="col-lg-12">
                 <div className="bradcaump__inner text-center">
@@ -133,9 +162,7 @@ const Article: React.FC = () => {
           <div className="row mt--40">
             <div className="col-lg-12">
               <ul className="dg__pagination d-flex">
-                {[
-                  ...Array(Math.ceil(articles.length / ArticlesPerPage)).keys(),
-                ].map((number) => (
+                {[...Array(totalPages).keys()].map((number) => (
                   <li key={number + 1}>
                     <a
                       onClick={(e) => {
