@@ -1,5 +1,5 @@
 import pool from "../database/database.config";
-import { Article } from "../types/article";
+import { Article } from "../types/Article";
 
 const articleModels = {
   create: async (article: Article) => {
