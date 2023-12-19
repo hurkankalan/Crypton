@@ -33,15 +33,6 @@ CREATE TABLE IF NOT EXISTS users (
   currency VARCHAR(255) NOT NULL DEFAULT 'EUR'
 );
 
--- Create table cryptos_users
-CREATE TABLE IF NOT EXISTS cryptos_users (
-  cryptos_id VARCHAR(255) NOT NULL,
-  users_id INTEGER NOT NULL,
-  FOREIGN KEY (cryptos_id) REFERENCES cryptos(id),
-  FOREIGN KEY (users_id) REFERENCES users(id),
-  PRIMARY KEY (cryptos_id, users_id)
-);
-
 -- Create table articles
 CREATE TABLE IF NOT EXISTS articles (
   id VARCHAR(500) PRIMARY KEY,
