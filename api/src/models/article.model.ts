@@ -31,12 +31,23 @@ const articleModels = {
       return res.rows[0];
   },
 
-  getByKeyword: async (keyword: string): Promise<Article[]> => {
-      const query = 'SELECT * FROM articles WHERE title LIKE $1 OR summary LIKE $1 OR source LIKE $1';
-      const values = [`%${keyword}%`];
-      const res = await pool.query(query, values);
-      return res.rows;
-  },
+  getByKeyword: async (keywords: string): Promise<Article[]> => {
+    const keywordArray = keywords.split(',');
+    let query = 'SELECT * FROM articles WHERE ';
+    const values: string[] = [];
+
+    keywordArray.forEach((keyword, index) => {
+        const valueIndex = index + 1;
+        query += `(title ILIKE $${valueIndex} OR summary ILIKE $${valueIndex} OR source ILIKE $${valueIndex})`;
+        if (index !== keywordArray.length - 1) {
+            query += ' OR ';
+        }
+        values.push(`%${keyword}%`);
+    });
+
+    const res = await pool.query(query, values);
+    return res.rows;
+},
 };
 
 export default articleModels;
