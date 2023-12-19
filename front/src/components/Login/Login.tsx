@@ -172,7 +172,7 @@ const LoginRegister = () => {
                                 <Tab.Pane eventKey="register">
                                     <div className="single__account">
                                         <div className="input__box">
-                                            <span>Usernamedd</span>
+                                            <span>Username</span>
                                             <input type="text" value={usernameCreate} onChange={handleUsernameCChange} />
                                         </div>
                                         <div className="input__box">
