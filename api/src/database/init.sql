@@ -68,3 +68,15 @@ CREATE TABLE IF NOT EXISTS rss (
   id SERIAL PRIMARY KEY,
   url VARCHAR(500) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS crypto_history (
+  id SERIAL PRIMARY KEY,
+  crypto_id VARCHAR(255) NOT NULL,
+  period VARCHAR(255) NOT NULL,
+  opening_price FLOAT NOT NULL,
+  highest_price FLOAT NOT NULL,
+  lowest_price FLOAT NOT NULL,
+  closing_price FLOAT NOT NULL,
+  timestamp TIMESTAMP NOT NULL,
+  FOREIGN KEY (crypto_id) REFERENCES cryptos(id)
+);

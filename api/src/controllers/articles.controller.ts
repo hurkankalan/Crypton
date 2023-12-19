@@ -3,7 +3,7 @@ import articleModels from "../models/article.model";
 import { Article } from "../types/Article";
 
 const articleControllers = {
-  async getArticleById(req: Request, res: Response) {
+  async getArticleById(req: Request, res: Response): Promise<void> {
     if (!req.params.id) {
       throw { status: 400, message: "One or more params are mising in URL" };
     }
@@ -21,7 +21,7 @@ const articleControllers = {
     }
   },
 
-  async getArticlesBykeyword(req: Request, res: Response) {
+  async getArticlesBykeyword(req: Request, res: Response): Promise<void> {
     let articles: Article[];
     try {
       if (!req.query.keyword) {

@@ -51,6 +51,4 @@ const updatePressReview = async () => {
 
 cron.schedule("*/1 * * * *", updatePressReview);
 
-updatePressReview();
-
 export const getPressReview = (): Article[] => pressReview;

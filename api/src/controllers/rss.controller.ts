@@ -5,7 +5,7 @@ import axios from 'axios';
 import xml2js from 'xml2js';
 
 const rssControllers = {
-    async getRss(req: Request, res: Response) {
+    async getRss(req: Request, res: Response): Promise<void> {
         let rss: rss[];
         try {
             rss = await rssModels.getAll();
@@ -20,7 +20,7 @@ const rssControllers = {
         }
     },
 
-    async createRss(req: Request, res: Response) {
+    async createRss(req: Request, res: Response): Promise<void> {
         try {
             const rss = req.body as rss;
             const response = await axios.get(rss.url);
@@ -43,8 +43,11 @@ const rssControllers = {
         }
     },
 
-    async deleteRss(req: Request, res: Response) {
+    async deleteRss(req: Request, res: Response): Promise<void> {
         try {
+            if (!req.params.id) {
+                throw { status: 400, message: "One or more params are missing in URL" };
+            }
             const id = parseInt(req.params.id);
             await rssModels.deleteById(id);
             res.status(200).json({ message: "rss deleted" });
