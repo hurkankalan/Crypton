@@ -21,7 +21,7 @@ export const register = async (username: string, email: string, password: string
             email,
             password,
         });
-        return response.data;
+        console.log("request success",response);
     } catch (error) {
         console.log(error);
     }
@@ -29,9 +29,25 @@ export const register = async (username: string, email: string, password: string
 
 export const login = async (email: string, password: string) => {
     try {
+        console.log(email,password)
+
         const response = await Api.post('login', {
             email,
-            password
+            password,
+        });
+        localStorage.setItem('user', JSON.stringify(response.data));
+        return response.status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+export const loginDiscord = async (username: string, email: string) => {
+    try {
+        console.log(email,username)
+        const response = await Api.post('login/discord', {
+            email,
+            username
+
         })
         localStorage.setItem('user', JSON.stringify(response.data));
         return response.status;
