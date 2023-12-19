@@ -1,5 +1,5 @@
 import pool from "../database/database.config";
-import { Article } from "../types/Article";
+import { Article } from "../types/article";
 
 const articleModels = {
   create: async (article: Article) => {
@@ -31,6 +31,12 @@ const articleModels = {
       return res.rows[0];
   },
 
+  setVisibility: async (id: string, isVisibleToGuests: boolean): Promise<void> => {
+      const query = 'UPDATE articles SET isVisibleToGuests = $1 WHERE id = $2';
+      const values = [isVisibleToGuests, id];
+      await pool.query(query, values);
+  },
+
   getByKeyword: async (keywords: string): Promise<Article[]> => {
     const keywordArray = keywords.split(',');
     let query = 'SELECT * FROM articles WHERE ';
@@ -47,7 +53,7 @@ const articleModels = {
 
     const res = await pool.query(query, values);
     return res.rows;
-},
+  },
 };
 
 export default articleModels;

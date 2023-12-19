@@ -20,7 +20,8 @@ CREATE TABLE IF NOT EXISTS cryptos (
   openingPrice FLOAT NOT NULL,
   lowestPrice FLOAT NOT NULL,
   highestPrice FLOAT NOT NULL,
-  imageUrl VARCHAR(255)
+  imageUrl VARCHAR(255),
+  isVisibleToGuests BOOLEAN DEFAULT FALSE
 );
 
 -- Create table users
@@ -34,15 +35,6 @@ CREATE TABLE IF NOT EXISTS users (
   connectType SMALLINT NOT NULL DEFAULT 0 -- 0 = local, 1 = discord
 );
 
--- Create table cryptos_users
-CREATE TABLE IF NOT EXISTS cryptos_users (
-  cryptos_id VARCHAR(255) NOT NULL,
-  users_id INTEGER NOT NULL,
-  FOREIGN KEY (cryptos_id) REFERENCES cryptos(id),
-  FOREIGN KEY (users_id) REFERENCES users(id),
-  PRIMARY KEY (cryptos_id, users_id)
-);
-
 -- Create table articles
 CREATE TABLE IF NOT EXISTS articles (
   id VARCHAR(500) PRIMARY KEY,
@@ -51,7 +43,8 @@ CREATE TABLE IF NOT EXISTS articles (
   source VARCHAR(500) NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   pageUrl VARCHAR(500) NOT NULL,
-  imageUrl VARCHAR(500)
+  imageUrl VARCHAR(500),
+  isVisibleToGuests BOOLEAN DEFAULT FALSE
 );
 
 -- CREATE TABLE wallet
