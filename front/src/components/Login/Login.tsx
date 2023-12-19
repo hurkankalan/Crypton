@@ -1,7 +1,7 @@
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import "./Login.Module.scss"
-import { login, register, /*logout*/ } from '../api/auth.api.tsx';
+import { login, loginDiscord, register, /*logout*/ } from '../api/auth.api.tsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord } from '@fortawesome/free-brands-svg-icons';
 import { Link} from "react-router-dom";
@@ -18,7 +18,7 @@ const LoginRegister = () => {
     const [emailCreate, setEmailCreate] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-    const { setRole } = useGlobalContext();
+    const { setRole,role } = useGlobalContext();
 
     const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEmailInput(event.target.value);
@@ -105,6 +105,10 @@ const LoginRegister = () => {
             if (!passwordInput) {
                 setErrorMessage('Please enter a password.');
                 return;
+            }
+            
+            if(role === 'guest'){
+                setRole('');
             }
             const response = await login(emailInput, passwordInput)
             setErrorMessage('');
