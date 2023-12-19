@@ -7,6 +7,7 @@ export type User = {
   currency?: "EUR" | "USD";
   accountAmount?: number;
   btcAmount?: number;
+  connectType?: number;
 };
 
-export type UserGoogle = Omit<User, "role" | "password" | "id">;
+export type UserDiscord = Omit<User, "role" | "password" | "id">;
