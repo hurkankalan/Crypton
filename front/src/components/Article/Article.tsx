@@ -31,11 +31,11 @@ const Article: React.FC = () => {
           localStorage.getItem("keywords") || "[]"
         );
 
-        // Utiliser le premier mot-clé si disponible
         let url = "http://localhost:8000/articles/search";
         if (storedKeywords.length > 0) {
-          const firstKeyword = storedKeywords[0];
-          url += `?keyword=${encodeURIComponent(firstKeyword)}`;
+          // Joindre tous les mots-clés avec une virgule
+          const keywordsParam = storedKeywords.join(",");
+          url += `?keyword=${encodeURIComponent(keywordsParam)}`;
         }
 
         // Appel de l'API pour récupérer les articles
@@ -48,6 +48,7 @@ const Article: React.FC = () => {
         console.error("Erreur lors de la récupération des articles:", error);
       }
     };
+
     fetchArticles(); // Appel de la fonction pour récupérer les articles
   }, []);
 
@@ -95,16 +96,14 @@ const Article: React.FC = () => {
     ? Math.ceil(articles.length / ArticlesPerPage)
     : 0;
 
+  // Vérifier si des articles sont présents
+  const hasArticles = currentArticles.length > 0;
+
   return (
     <>
       <div className="ht__bradcaump__area">
         <div className="ht__bradcaump__container">
           <div className="container">
-            {keywordMessage && (
-              <div className="alert alert-info" role="alert">
-                {keywordMessage}
-              </div>
-            )}
             <div className="row">
               <div className="col-lg-12">
                 <div className="bradcaump__inner text-center">
@@ -117,70 +116,79 @@ const Article: React.FC = () => {
       </div>
       <div className="dg__blog__area bg--white pt--110 pb--140">
         <div className="container">
-          <div className="row">
-            {currentArticles.map((article: any) => (
-              <div
-                key={article.id}
-                className="col-lg-4 col-md-6 col-sm-6 col-12"
-              >
-                <article className="blog__3">
-                  <div className="thumb">
-                    <img
-                      src={getRandomImage()}
-                      alt=""
-                      className="article-image"
-                    />
-                  </div>
-                  <div className="content">
-                    <div className="bl__author">
-                      <div className="author__inner">
-                        <h6>{article.source}</h6>
-                        <span>
-                          {new Date(article.date).toLocaleDateString()}
-                        </span>
-                      </div>
+          {hasArticles ? (
+            <div className="row">
+              {currentArticles.map((article: any) => (
+                <div
+                  key={article.id}
+                  className="col-lg-4 col-md-6 col-sm-6 col-12"
+                >
+                  <article className="blog__3">
+                    <div className="thumb">
+                      <img
+                        src={getRandomImage()}
+                        alt=""
+                        className="article-image"
+                      />
                     </div>
-                    <h2>
-                      <a
-                        href={article.pageUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {article.title}
-                      </a>
-                    </h2>
-                    <div
-                      dangerouslySetInnerHTML={{
-                        __html: removeImageFromSummary(article.summary),
-                      }}
-                    />
-                  </div>
-                </article>
-              </div>
-            ))}
-          </div>
-          <div className="row mt--40">
-            <div className="col-lg-12">
-              <ul className="dg__pagination d-flex">
-                {[...Array(totalPages).keys()].map((number) => (
-                  <li key={number + 1}>
-                    <a
-                      onClick={(e) => {
-                        e.preventDefault();
-                        paginate(number + 1);
-                      }}
-                      href=""
-                    >
-                      {number + 1}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+                    <div className="content">
+                      <div className="bl__author">
+                        <div className="author__inner">
+                          <h6>{article.source}</h6>
+                          <span>
+                            {new Date(article.date).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
+                      <h2>
+                        <a
+                          href={article.pageUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {article.title}
+                        </a>
+                      </h2>
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: removeImageFromSummary(article.summary),
+                        }}
+                      />
+                    </div>
+                  </article>
+                </div>
+              ))}
             </div>
-          </div>
+          ) : (
+            <div className="alert alert-info" role="alert">
+              {keywordMessage ? keywordMessage : "Aucun article à afficher."}
+            </div>
+          )}
+          {hasArticles && (
+            <div className="row mt--40">
+              <div className="col-lg-12">
+                <ul className="dg__pagination d-flex">
+                  {[...Array(totalPages).keys()].map((number) => (
+                    <li key={number + 1}>
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault();
+                          paginate(number + 1);
+                        }}
+                        href="#"
+                      >
+                        {number + 1}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
   );
 };
+
 export default Article;
