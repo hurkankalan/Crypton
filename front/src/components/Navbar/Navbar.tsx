@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import styles from "./Navbar.module.scss";
 import { useGlobalContext } from '../../context/context.ts'
+import { logout } from "../api/auth.api.tsx";
 
 
 
@@ -8,6 +9,14 @@ import { useGlobalContext } from '../../context/context.ts'
 
 export const Navbar: React.FC = () => {
   const { username } = useGlobalContext();
+
+  const handleLogout = async () => {
+    try{
+      await logout();
+    }catch(err){
+      console.log(err);
+    }
+  };
   
   return (
     <div className={styles.container}>
@@ -37,7 +46,7 @@ export const Navbar: React.FC = () => {
               <div className={styles.name}>{username}</div>
             </div>
           </NavLink>
-          <NavLink to="/login" className={styles.navlink}>
+          <NavLink  to={""} className={styles.navlink} onClick={handleLogout}>
             Logout
           </NavLink>
         </div>

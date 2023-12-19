@@ -5,7 +5,7 @@ import Api from "../components/api/auth.api";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import { useGlobalContext } from "../context/context";
 
-type Props = {
+export type Props = {
     children: JSX.Element;
 };
 
@@ -18,13 +18,11 @@ interface MyTokenPayload extends JwtPayload {
 
 const Protected: React.FC<Props> = ({ children }) => {
     const [cookies] = useCookies(["token"]);
-    const [token, setToken] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const { setUsername } = useGlobalContext();
+    const { setUsername,setToken,token } = useGlobalContext();
 
 
     useEffect(() => {
-        console.log(cookies.token);
 
         if (cookies.token) {
             const decodedToken = jwtDecode<MyTokenPayload>(cookies.token);
@@ -32,7 +30,7 @@ const Protected: React.FC<Props> = ({ children }) => {
             setToken(cookies.token);
             Api.defaults.headers.common["jwt"] = cookies.token;
         } else {
-            setToken(null);
+            setToken("");
         }
         setIsLoading(false);
     }, [cookies]);
