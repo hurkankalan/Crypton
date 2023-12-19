@@ -7,8 +7,7 @@ import { useCookies } from "react-cookie";
 
 export const Unprotected: React.FC<Props> =({children}) => { 
     const [cookies] = useCookies(["token"]);
-    const {setToken} = useGlobalContext();
-    const {token} = useGlobalContext();
+    const {token , setToken , role} = useGlobalContext();
 
     if (cookies.token) {
         setToken(cookies.token);
@@ -16,7 +15,7 @@ export const Unprotected: React.FC<Props> =({children}) => {
         setToken("");
     }
 
-    if (token) {
+    if (token && role !== "guest") {
         return <Navigate to="/home" />;
     }
 
