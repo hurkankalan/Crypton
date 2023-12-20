@@ -4,6 +4,7 @@ import cookie from "cookie-parser";
 import userRouter from "./routes/index.route";
 import cors from 'cors';
 import { getPressReview } from "./utils/rssArticles";
+import { getCrypto } from "./utils/apiCrypto";
 
 const app = express();
 const port = 8000;
@@ -22,4 +23,5 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port} 🚀`);
   getPressReview();
+  getCrypto();
 });

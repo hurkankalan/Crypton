@@ -14,13 +14,14 @@ CREATE DATABASE crypton;
 
 -- Create table cryptos
 CREATE TABLE IF NOT EXISTS cryptos (
-  id SERIAL PRIMARY KEY,
+  id VARCHAR(255) PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   currentPrice FLOAT NOT NULL,
   openingPrice FLOAT NOT NULL,
   lowestPrice FLOAT NOT NULL,
   highestPrice FLOAT NOT NULL,
-  imageUrl VARCHAR(255)
+  imageUrl VARCHAR(255),
+  isVisibleToGuests BOOLEAN DEFAULT FALSE
 );
 
 -- Create table users
@@ -30,16 +31,8 @@ CREATE TABLE IF NOT EXISTS users (
   email VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   role VARCHAR(255) NOT NULL DEFAULT 'user',
-  currency VARCHAR(255) NOT NULL DEFAULT 'EUR'
-);
-
--- Create table cryptos_users
-CREATE TABLE IF NOT EXISTS cryptos_users (
-  cryptos_id INTEGER NOT NULL,
-  users_id INTEGER NOT NULL,
-  FOREIGN KEY (cryptos_id) REFERENCES cryptos(id),
-  FOREIGN KEY (users_id) REFERENCES users(id),
-  PRIMARY KEY (cryptos_id, users_id)
+  currency VARCHAR(255) NOT NULL DEFAULT 'EUR',
+  connectType SMALLINT NOT NULL DEFAULT 0 -- 0 = local, 1 = discord
 );
 
 -- Create table articles
@@ -50,7 +43,8 @@ CREATE TABLE IF NOT EXISTS articles (
   source VARCHAR(500) NOT NULL,
   date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   pageUrl VARCHAR(500) NOT NULL,
-  imageUrl VARCHAR(500)
+  imageUrl VARCHAR(500),
+  isVisibleToGuests BOOLEAN DEFAULT FALSE
 );
 
 -- CREATE TABLE wallet
@@ -66,4 +60,16 @@ CREATE TABLE IF NOT EXISTS wallet (
 CREATE TABLE IF NOT EXISTS rss (
   id SERIAL PRIMARY KEY,
   url VARCHAR(500) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS crypto_history (
+  id SERIAL PRIMARY KEY,
+  crypto_id VARCHAR(255) NOT NULL,
+  period VARCHAR(255) NOT NULL,
+  opening_price FLOAT NOT NULL,
+  highest_price FLOAT NOT NULL,
+  lowest_price FLOAT NOT NULL,
+  closing_price FLOAT NOT NULL,
+  timestamp TIMESTAMP NOT NULL,
+  FOREIGN KEY (crypto_id) REFERENCES cryptos(id)
 );

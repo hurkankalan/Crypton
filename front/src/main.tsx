@@ -1,9 +1,10 @@
 /* React */
-import React from "react";
+import React, { useState } from "react";
 
 /* React Router Dom */
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { MyGlobalContext } from './context/context.ts'
 
 /* Components */
 import Home from "./pages/Home";
@@ -18,17 +19,27 @@ import Container from "./pages/Container/Container.tsx";
 import Article from "./components/Article/Article.tsx";
 import Login from "./components/Login/Login.tsx";
 import Profile from "./pages/Profile/Profile.tsx";
+import Protected from "./middlewares/Protected.tsx";
+import { Unprotected } from "./middlewares/Unprotected.tsx";
 // import "./styles/scss/flex.scss";
 
 /* Routes */
+
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />, // AJOUTER LA PAGE QUI ENGLOBE LE LOGIN ET REGISTER ICI
+    element: 
+    <Unprotected>
+      <Login />
+    </Unprotected>,
   },
   {
     path: "/home",
-    element: <Container />,
+    element:
+      <Protected>
+        <Container />
+      </Protected>,
     children: [
       { index: true, element: <Home /> },
       {
@@ -46,9 +57,23 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-    <ToastContainer />
-  </React.StrictMode>
-);
+
+
+
+const App: React.FC = () => {
+  const [username, setUsername] = useState(" ");
+  const [token, setToken] = useState<string>("");
+  const [role, setRole] = useState<string>("");
+  const value = { username, setUsername, setToken,token,role,setRole };
+
+  return (
+    <React.StrictMode>
+      <MyGlobalContext.Provider value={value}>
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </MyGlobalContext.Provider>
+    </React.StrictMode>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById("root")!).render(<App />);

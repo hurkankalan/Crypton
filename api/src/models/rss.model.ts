@@ -3,7 +3,7 @@ import { rss} from "../types/Rss";
 
 const rssModels = {
     
-    create: async (rss: rss) => {
+    create: async (rss: rss):Promise<void> => {
         const query = `
         INSERT INTO rss(url)
         VALUES($1)
@@ -12,13 +12,13 @@ const rssModels = {
         await pool.query(query, values);
     },
 
-    getAll: async (): Promise<rss[]> => {
+    getAll: async ():Promise<rss[]> => {
         const query = 'SELECT * FROM rss';
         const res = await pool.query(query);
         return res.rows;
     },
 
-    deleteById: async (id: number): Promise<rss> => {
+    deleteById: async (id: number):Promise<rss> => {
         const query = 'DELETE FROM rss WHERE id = $1';
         const values = [id];
         const res = await pool.query(query, values);

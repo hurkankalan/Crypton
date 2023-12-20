@@ -6,4 +6,5 @@ export type Article = {
     date: string;
     pageUrl: string;
     imageUrl?: string;
+    isVisibleToGuests: boolean;
 }

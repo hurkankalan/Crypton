@@ -1,12 +1,10 @@
-FROM node:alpine
+FROM node:lts-alpine
 
 WORKDIR /front
 
-COPY package*.json .
+COPY . .
 
 RUN npm install
-
-COPY ./src .
 
 EXPOSE 5173
 
