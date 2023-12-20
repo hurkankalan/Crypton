@@ -104,6 +104,11 @@ const Article: React.FC = () => {
       <div className="ht__bradcaump__area">
         <div className="ht__bradcaump__container">
           <div className="container">
+            {keywordMessage && (
+              <div className="alert alert-info" role="alert">
+                {keywordMessage}
+              </div>
+            )}
             <div className="row">
               <div className="col-lg-12">
                 <div className="bradcaump__inner text-center">
@@ -160,9 +165,11 @@ const Article: React.FC = () => {
               ))}
             </div>
           ) : (
-            <div className="alert alert-info" role="alert">
-              {keywordMessage ? keywordMessage : "Aucun article à afficher."}
-            </div>
+            !keywordMessage && (
+              <div className="alert alert-info" role="alert">
+                Aucun article à afficher.
+              </div>
+            )
           )}
           {hasArticles && (
             <div className="row mt--40">
