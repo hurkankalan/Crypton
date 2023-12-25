@@ -57,7 +57,7 @@ const LoginRegister = () => {
 
             // Check if 'access_token' is present in the URL fragment
             if ('access_token' in params) {
-                const accessToken = params['access_token'];
+                const accessToken = params['access_token']; 
                 console.log()
                 window.onload = () => {
                     const fragment = new URLSearchParams(window.location.hash.slice(1));

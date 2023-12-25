@@ -21,6 +21,7 @@ import Login from "./components/Login/Login.tsx";
 import Profile from "./pages/Profile/Profile.tsx";
 import Protected from "./middlewares/Protected.tsx";
 import { Unprotected } from "./middlewares/Unprotected.tsx";
+import Wallet from "./pages/Wallet/Wallet.tsx";
 // import "./styles/scss/flex.scss";
 
 /* Routes */
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile />,
       },
+      {
+        path: "wallet",
+        element: <Wallet username="CryptoFan123" currencyBalance={42}/>,
+      }
     ],
   },
 ]);
@@ -64,7 +69,10 @@ const App: React.FC = () => {
   const [username, setUsername] = useState(" ");
   const [token, setToken] = useState<string>("");
   const [role, setRole] = useState<string>("");
-  const value = { username, setUsername, setToken,token,role,setRole };
+  const [balance, setBalance] = useState<number>(0);
+  const [userId, setUserId] = useState<number>(0);
+  const [bitcoin, setBitcoin] = useState<number>(0);  
+  const value = { username, setUsername, setToken,token,role,setRole,balance,setBalance,userId,setUserId ,bitcoin,setBitcoin};
 
   return (
     <React.StrictMode>

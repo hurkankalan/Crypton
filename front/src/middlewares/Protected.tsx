@@ -19,7 +19,7 @@ interface MyTokenPayload extends JwtPayload {
 const Protected: React.FC<Props> = ({ children }) => {
     const [cookies] = useCookies(["token"]);
     const [isLoading, setIsLoading] = useState(true);
-    const { setUsername,setToken,token,setRole,role } = useGlobalContext();
+    const { setUsername,setToken,token,setRole,role,setUserId } = useGlobalContext();
 
 
     useEffect(() => {
@@ -27,6 +27,7 @@ const Protected: React.FC<Props> = ({ children }) => {
             const decodedToken = jwtDecode<MyTokenPayload>(cookies.token);
             setUsername(decodedToken.username);
             setRole(decodedToken.role);
+            setUserId(decodedToken.id);
             setToken(cookies.token);
             Api.defaults.headers.common["jwt"] = cookies.token;
         } else {
