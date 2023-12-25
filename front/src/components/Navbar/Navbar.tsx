@@ -68,7 +68,7 @@ export const Navbar: React.FC = () => {
           </div> :
           <>
             <div className={styles.navcontentRight}>
-              <NavLink to="" className={styles.navlink}>
+              <NavLink to="/home/wallet" className={styles.navlink}>
                 Wallet
               </NavLink>
               <NavLink to="/home/profile" className={styles.navlink}>
