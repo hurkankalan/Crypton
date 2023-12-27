@@ -93,6 +93,12 @@ const cryptosModels = {
         const values = [cmid];
         const res = await pool.query(query, values);
         return res.rows;
+    },
+
+    setVisibility: async (id: string, isVisibleToGuests: boolean): Promise<void> => {
+        const query = 'UPDATE cryptos SET isVisibleToGuests = $1 WHERE id = $2';
+        const values = [isVisibleToGuests, id];
+        await pool.query(query, values);
     }
 };
 

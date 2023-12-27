@@ -6,4 +6,5 @@ export type Crypto = {
     lowestPrice: number;
     highestPrice: number;
     imageUrl: string;
+    isVisibleToGuests: boolean;
 }
