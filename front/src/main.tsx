@@ -22,6 +22,7 @@ import Profile from "./pages/Profile/Profile.tsx";
 import Protected from "./middlewares/Protected.tsx";
 import { Unprotected } from "./middlewares/Unprotected.tsx";
 import Wallet from "./pages/Wallet/Wallet.tsx";
+import Prediction from "./components/Predict/Prediction.tsx"; 
 // import "./styles/scss/flex.scss";
 
 /* Routes */
@@ -58,7 +59,11 @@ const router = createBrowserRouter([
       {
         path: "wallet",
         element: <Wallet username="CryptoFan123" currencyBalance={42}/>,
-      }
+      },
+      {
+        path: "prediction", 
+        element: <Prediction />,
+      },
     ],
   },
 ]);
