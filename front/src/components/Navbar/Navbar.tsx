@@ -4,9 +4,6 @@ import { useGlobalContext } from '../../context/context.ts'
 import { logout } from "../api/auth.api.tsx";
 
 
-
-
-
 export const Navbar: React.FC = () => {
   const { username, role } = useGlobalContext();
   const navigate = useNavigate();
@@ -56,6 +53,9 @@ export const Navbar: React.FC = () => {
                 <NavLink to="/home/Article" className={styles.navlink}>
                   Blog
                 </NavLink>
+                <NavLink to="/home/prediction" className={styles.navlink}>
+                  Prediction
+                </NavLink>
               </div>
             </div>
           </>
@@ -78,6 +78,9 @@ export const Navbar: React.FC = () => {
               </NavLink>
               <NavLink to={""} className={styles.navlink} onClick={handleLogout}>
                 Logout
+              </NavLink>
+              <NavLink to="/home/prediction" className={styles.navlink}>
+                Prediction
               </NavLink>
             </div>
 

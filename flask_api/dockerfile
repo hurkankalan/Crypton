@@ -1,0 +1,18 @@
+# Utiliser une image de base Python
+FROM python:3.10.7
+
+# Définir le répertoire de travail dans le conteneur
+WORKDIR /flask_api
+
+# Copier les fichiers de dépendances et installer les dépendances
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier l'application Flask dans le conteneur
+COPY . .
+
+# Exposer le port sur lequel Flask s'exécute
+EXPOSE 5000
+
+# Définir la commande pour exécuter l'application
+CMD ["flask", "run", "--host=0.0.0.0"]

@@ -37,6 +37,17 @@ services:
       - type: bind
         source: ./front/src
         target: /front/src
-        
+
+  flask-api:
+    build:
+      context: ./flask_api
+    ports:
+      - "${FLASK_API_PORT}:${FLASK_API_PORT}"
+    volumes:
+      - "./flask_api:/flask_api"
+    environment:
+      - FLASK_ENV=development
+    restart: unless-stopped
+
 volumes:
   crypton-db-data:
