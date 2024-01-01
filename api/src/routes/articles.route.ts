@@ -8,7 +8,7 @@ const allArticleRouter = Router();
 allArticleRouter.get("/byid/:id", articleControllers.getArticleById);
 allArticleRouter.get("/search", articleControllers.getArticlesBykeyword);
 allArticleRouter.get("/visibileArticles", verifyToken, isAdmin, articleControllers.getAllArticlesTitlesAndVisibilities);
-allArticleRouter.post("/visibility", verifyToken, isAdmin, articleControllers.setVisibility);
+allArticleRouter.put("/visibility", verifyToken, isAdmin, articleControllers.setVisibility);
 
 export default allArticleRouter;
 

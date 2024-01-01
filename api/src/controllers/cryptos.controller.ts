@@ -15,7 +15,8 @@ const articleControllers = {
                 openingPrice: 0,
                 lowestPrice: 0,
                 highestPrice: 0,
-                imageUrl: ''
+                imageUrl: '',
+                isVisibleToGuests: true
             };
             await cryptosModels.create(crypto);
             res.status(200).json({ message: "Crypto created" });
@@ -92,6 +93,39 @@ const articleControllers = {
           const id = decodeURIComponent(req.params.id);
           await cryptosModels.deleteCrypto(id);
           res.status(200).json({ message: "Crypto deleted" });
+        } catch (error) {
+          console.error(error);
+          const status = (error as { status?: number }).status || 500;
+          res.status(status).json({ error });
+        }
+      },
+
+      async getAllCryptosNamesAndVisibilities(req: Request, res: Response) {
+        try {
+          const cryptos = await cryptosModels.getAll();
+          if (cryptos.length === 0) {
+            throw { status: 404, message: "Cryptos not found" };
+          }
+          const cryptosNamesAndVisibilities = cryptos.map((crypto) => {
+            return { id: crypto.id, name: crypto.name, visible: crypto.isVisibleToGuests };
+          });
+          res.status(200).json(cryptosNamesAndVisibilities);
+        } catch (error) {
+          console.error(error);
+          const status = (error as { status?: number }).status || 500;
+          res.status(status).json({ error });
+        }
+      },
+
+      async setVisibility(req: Request, res: Response) {
+        if (!req.params.id || req.body.visible === undefined) {
+          throw { status: 400, message: "One or more params are mising in URL" };
+        }
+        try {
+          const id = decodeURIComponent(req.params.id);
+          const visible = req.body.visible;
+          await cryptosModels.setVisibility(id, visible);
+          res.status(200).json({ message: "Visibility set" });
         } catch (error) {
           console.error(error);
           const status = (error as { status?: number }).status || 500;
