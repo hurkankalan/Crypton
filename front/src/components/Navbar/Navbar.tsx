@@ -79,9 +79,6 @@ export const Navbar: React.FC = () => {
               <NavLink to={""} className={styles.navlink} onClick={handleLogout}>
                 Logout
               </NavLink>
-              <NavLink to="/home/prediction" className={styles.navlink}>
-                Prediction
-              </NavLink>
             </div>
 
           </>
