@@ -1,140 +1,142 @@
-import { Request, Response } from "express";
+import {Request, Response} from "express";
 import walletModels from "../models/wallet.model";
-import { Wallet } from "../types/Wallet";
+import {Wallet} from "../types/Wallet";
 import userModels from "../models/user.model";
 
 const walletControllers = {
-  async allWallets(req: Request, res: Response) {
-    try {
-      const wallets = await walletModels.getAllWallets();
+    async allWallets(req: Request, res: Response) {
+        try {
+            const wallets = await walletModels.getAllWallets();
 
-      res.status(200).json(wallets.rows);
-      return;
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error });
-      return;
-    }
-  },
+            res.status(200).json(wallets.rows);
+            return;
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({error});
+            return;
+        }
+    },
 
-  async walletByUserId(req: Request, res: Response) {
-    const { userId } = req.params;
+    async walletByUserId(req: Request, res: Response) {
+        const {userId} = req.params;
 
-    if (!userId) {
-      res.status(400).json({ error: "One or more params are mising in URL" });
-      return;
-    }
+        if (!userId) {
+            res.status(400).json({error: "One or more params are mising in URL"});
+            return;
+        }
 
-    try {
-      const wallet = await walletModels.getWalletByUserId(parseInt(userId));
+        try {
+            const wallet = await walletModels.getWalletByUserId(parseInt(userId));
 
-      if (!wallet.rows[0]) {
-        res.status(404).json({ error: "Wallet not found" });
-        return;
-      }
+            if (!wallet.rows[0]) {
+                res.status(404).json({error: "Wallet not found"});
+                return;
+            }
 
-      res.status(200).json(wallet.rows);
-      return;
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error });
-      return;
-    }
-  },
+            res.status(200).json(wallet.rows);
+            return;
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({error});
+            return;
+        }
+    },
 
-  async updateAccountAmount(req: Request, res: Response) {
-    const { userId } = req.params;
-    const { amount } = req.body;
+    async updateAccountAmount(req: Request, res: Response) {
+        const {userId} = req.params;
+        const {amount} = req.body;
 
-    if (!userId) {
-      res.status(400).json({ error: "One or more params are mising in URL" });
-      return;
-    }
+        if (!userId) {
+            res.status(400).json({error: "One or more params are mising in URL"});
+            return;
+        }
 
-    for (const key in req.body) {
-      if (!req.body[key]) {
-        res
-          .status(400)
-          .json({ error: `Missing required field: ${key} in body` });
-        return;
-      }
-    }
+        for (const key in req.body) {
+            if (!req.body[key]) {
+                res
+                    .status(400)
+                    .json({error: `Missing required field: ${key} in body`});
+                return;
+            }
+        }
 
-    try {
-      const wallet = await walletModels.getWalletByUserId(parseInt(userId));
-      const user = await userModels.getUserById(parseInt(userId));
+        try {
+            const wallet = await walletModels.getWalletByUserId(parseInt(userId));
+            const user = await userModels.getUserById(parseInt(userId));
 
-      if (!wallet.rowCount) {
-        res.status(404).json({ error: "Wallet not found" });
-        return;
-      }
+            if (!wallet.rowCount) {
+                res.status(404).json({error: "Wallet not found"});
+                return;
+            }
+            const valuesArray = Object.values(wallet.rows[0]);
+            const currentAccountAmount = valuesArray[2];
+            const accountAmount = currentAccountAmount + parseInt(amount);
 
-      const currentAccountAmount = wallet.rows[0].accountAmount;
+            const balance = await walletModels.updateAccountAmount(
+                accountAmount,
+                parseInt(userId)
+            );
 
-      const accountAmount = currentAccountAmount + parseInt(amount);
+            res.status(200).json({data: balance});
+            return;
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({error});
+            return;
+        }
+    },
 
-      const balance = await walletModels.updateAccountAmount(
-        accountAmount,
-        parseInt(userId)
-      );
+    async updateBtcAmount(req: Request, res: Response) {
+        const {userId} = req.params;
+        const {euroenmoinssurlecompte, btcAmount} = req.body;
 
-      res.status(200).json({ data: balance });
-      return;
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error });
-      return;
-    }
-  },
+        if (!userId) {
+            res.status(400).json({error: "One or more params are mising in URL"});
+            return;
+        }
 
-  async updateBtcAmount(req: Request, res: Response) {
-    const { userId } = req.params;
-    const { euroenmoinssurlecompte, btcAmount } = req.body;
+        for (const key in req.body) {
+            if (!req.body[key]) {
+                res
+                    .status(400)
+                    .json({error: `Missing required field: ${key} in body`});
+                return;
+            }
+        }
 
-    if (!userId) {
-      res.status(400).json({ error: "One or more params are mising in URL" });
-      return;
-    }
+        try {
+            const wallet = await walletModels.getWalletByUserId(parseInt(userId));
 
-    for (const key in req.body) {
-      if (!req.body[key]) {
-        res
-          .status(400)
-          .json({ error: `Missing required field: ${key} in body` });
-        return;
-      }
-    }
+            if (!wallet.rowCount) {
+                res.status(404).json({error: "Wallet not found"});
+                return;
+            }
 
-    try {
-      const wallet = await walletModels.getWalletByUserId(parseInt(userId));
+            // Ancien soldes du compte
+            /*      const oldAccountAmount = wallet.rows[0].accountAmount;*/
+            const walletValuesArray = Object.values(wallet.rows[0]);
+            // Nouveau solde du compte
+            const currentAccountAmount =
+                walletValuesArray[2] - parseInt(euroenmoinssurlecompte);
+            const balanceDollars = await walletModels.updateAccountAmount(
+                currentAccountAmount,
+                parseInt(userId)
+            );
 
-      if (!wallet.rowCount) {
-        res.status(404).json({ error: "Wallet not found" });
-        return;
-      }
+            const currentBtcAmount = walletValuesArray[3] + parseInt(btcAmount);
+            const balance = await walletModels.updateBtcAmount(
+                currentBtcAmount,
+                parseInt(userId)
+            );
 
-      // Ancien soldes du compte
-      const oldAccountAmount = wallet.rows[0].accountAmount;
-
-      // Nouveau solde du compte
-      const currentAccountAmount =
-        oldAccountAmount - parseInt(euroenmoinssurlecompte);
-
-      const currentBtcAmount = wallet.rows[0].btcAmount + parseInt(btcAmount);
-
-      const balance = await walletModels.updateBtcAmount(
-        currentBtcAmount,
-        parseInt(userId)
-      );
-
-      res.status(200).json({ data: balance });
-      return;
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error });
-      return;
-    }
-  },
+            res.status(200).json({data: [balanceDollars, balance]});
+            return;
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({error});
+            return;
+        }
+    },
 };
 
 export default walletControllers;

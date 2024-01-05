@@ -1,0 +1,89 @@
+/*-------------------
+	Banner Styles
+----------------------*/
+
+
+.single__account.tab-pane:not(.active) {
+  display: none;
+}
+
+input {
+  width: 100%;
+  height: 50px;
+  margin-bottom: 21px;
+  padding: 0 15px;
+
+  border: 1px solid #BEBEBE;
+  outline: none;
+}
+
+.dg__account {
+  width: 570px;
+  margin: 0 auto;
+}
+
+.btn-crypto-buy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px; /* Adjust padding for a larger button */
+  background-color: #3498db;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 80%;
+  transition: background-color 0.3s ease;
+}
+
+.btn-crypto-buy:hover {
+  background-color: #2980b9;
+}
+
+.btn-crypto-buy:active {
+  background-color: #1f618d;
+}
+
+@media screen and (min-width: 768px) {
+  .btn-crypto-buy {
+    width: auto;
+  }
+}
+
+
+/* Responsive Css*/
+/* Layouts*/
+$sp-layout: 'only screen and (min-width: 1920px)';
+$xx-layout: 'only screen and (min-width: 1600px) and (max-width: 1919px)';
+$xlg-layout: 'only screen and (min-width: 1200px) and (max-width: 1599px)';
+$lg-layout: 'only screen and (min-width: 992px) and (max-width: 1199px)';
+$md-layout: 'only screen and (min-width: 768px) and (max-width: 991px)';
+$sm-layout: 'only screen and (max-width: 767px)';
+$xs-layout: 'only screen and (max-width: 575px)';
+$xxs-layout: 'only screen and (max-width: 420px)';
+
+@media #{$lg-layout} {
+}
+
+@media #{$md-layout} {
+}
+
+@media #{$sm-layout} {
+  .dg__account {
+    width: 502px;
+  }
+}
+
+@media #{$xs-layout} {
+  .dg__account {
+    width: 400px;
+  }
+}
+
+@media #{$xxs-layout} {
+  .dg__account {
+    width: 300px;
+  }
+}
+
+
