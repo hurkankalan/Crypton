@@ -10,7 +10,7 @@
     z-index: 9999;
     background: var(--secondary);
     @include flex(center, center);
-    transition: $transition;
+    transition: $transition;    
 
     .navcontentRight {
       @include flex(center, flex-end);

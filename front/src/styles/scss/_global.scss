@@ -20,6 +20,11 @@
   box-sizing: border-box;
 }
 
+.logo {
+  max-width: 100px !important;
+  height: auto !important;
+}
+
 :root {
   --primary: #3772ff;
   --secondary: #1D212A;

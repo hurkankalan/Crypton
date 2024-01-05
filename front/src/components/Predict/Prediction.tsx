@@ -143,7 +143,7 @@ const PredictionsComponent: React.FC = () => {
   return (
     <div className="predictions-container">
       <h1 className="title">Prévisions Bitcoin</h1>
-      <button className="fetch-button" onClick={fetchPredictions}>Obtenir les Prévisions</button>{/* // Affichage du message conseil. */}
+      <button className="fetch-button" onClick={fetchPredictions}>Obtenir les Prévisions</button>  {/* // Affichage du message conseil. */}
       <div className="advice-text">{shouldInvestMessage}</div> 
       <div className="chart-container">
         <Line key={key} data={data} options={options}/> {/* Le graphique Line avec les données et les options. */}

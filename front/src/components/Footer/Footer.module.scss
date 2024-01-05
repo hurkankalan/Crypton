@@ -142,7 +142,7 @@
 }
 
 ._Footer_5wf6d_6 {
-
+    background-color: black;
     /* Copyright */
     .copyright {
         padding: 25px 0 !important;
@@ -163,10 +163,12 @@
                         justify-content: center;
                         height: 40px; // Hauteur fixe pour les icônes
                         width: 40px; // Largeur fixe pour les icônes
+                        color: white;
 
                         svg {
                             max-width: 100%;
                             max-height: 100%;
+                            color: white;
                         }
                     }
                 }
@@ -174,18 +176,4 @@
         }
     }
 
-    .col-lg-6.col-sm-6.col-12 {
-        display: flex;
-        justify-content: center; // Centre horizontalement
-        align-items: center; // Centre verticalement
-        height: 100%; // Assurez-vous que le conteneur a une hauteur pour le centrage vertical
-
-        .copyright__inner {
-            text-align: center; // Centre le texte à l'intérieur du paragraphe
-
-            p {
-                margin: 0; // Enlève la marge par défaut du paragraphe si nécessaire
-            }
-        }
-    }
 }

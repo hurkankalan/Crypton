@@ -2,7 +2,7 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.scss";
 import { useGlobalContext } from '../../context/context.ts'
 import { logout } from "../api/auth.api.tsx";
-
+// import logo from "./../../assets/crypton.png"
 
 export const Navbar: React.FC = () => {
   const { username, role } = useGlobalContext();
@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
           <>
           <div className={styles.navcontentLeft}>
             <NavLink to="/home" className={styles.logo}>
-              Your Logo
+            {/* <img src={logo} alt="Crypton Logo" />  */}
             </NavLink>
             <div className={styles.navlinks}>
               <NavLink to="#" className={styles.navlink}>
@@ -40,9 +40,9 @@ export const Navbar: React.FC = () => {
         </> : 
           <>
             <div className={styles.navcontentLeft}>
-              <NavLink to="/home" className={styles.logo}>
-                Your Logo
-              </NavLink>
+            <NavLink to="/home" className={styles.logo}>
+            {/* <img src={logo} alt="Crypton Logo" />  */}
+            </NavLink>
               <div className={styles.navlinks}>
                 <NavLink to="/home" className={styles.navlink}>
                   Home

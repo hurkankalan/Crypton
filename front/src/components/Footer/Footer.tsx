@@ -142,7 +142,7 @@ const Footer: React.FC<FooterProps> = ({ theme }) => {
           theme === "white" ? "bg__color--1" : "bg--black"
         }`}
       >
-        <div className="container">
+        <div className="container" >
           <div className="row align-items-center">
             <div className="col-lg-6 col-sm-6 col-12">
               <div className="copyright__inner">
@@ -150,7 +150,7 @@ const Footer: React.FC<FooterProps> = ({ theme }) => {
               </div>
             </div>
             <div className="col-lg-6 col-sm-6 col-12">
-              <ul className="footer__right social__icon">
+            <ul className="footer__right social__icon" style={{ display: 'flex', justifyContent: 'space-evenly' }}>
                 <li>
                   <a
                     href="//facebook.com"
