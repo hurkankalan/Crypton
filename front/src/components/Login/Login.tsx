@@ -1,13 +1,13 @@
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import "./Login.Module.scss"
-import { login, loginDiscord, register, /*logout*/ } from '../api/auth.api.tsx';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { Link} from "react-router-dom";
-import { ChangeEvent, useState } from 'react';
-import { useGlobalContext } from "../../context/context.ts";
-import { useNavigate } from 'react-router-dom';
+import {login, loginDiscord, register, /*logout*/} from '../api/auth.api.tsx';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faDiscord} from '@fortawesome/free-brands-svg-icons';
+import {Link} from "react-router-dom";
+import {ChangeEvent, useState} from 'react';
+import {useGlobalContext} from "../../context/context.ts";
+import {useNavigate} from 'react-router-dom';
 
 const LoginRegister = () => {
     const [activeTab, setActiveTab] = useState('login');
@@ -18,7 +18,7 @@ const LoginRegister = () => {
     const [emailCreate, setEmailCreate] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
-    const { setRole,role } = useGlobalContext();
+    const {setRole, role} = useGlobalContext();
 
     const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEmailInput(event.target.value);
@@ -54,10 +54,8 @@ const LoginRegister = () => {
     const handleOAuthCallback = () => {
         const params = getFragmentParams();
         try {
-
-            // Check if 'access_token' is present in the URL fragment
             if ('access_token' in params) {
-                const accessToken = params['access_token']; 
+                const accessToken = params['access_token'];
                 console.log()
                 window.onload = () => {
                     const fragment = new URLSearchParams(window.location.hash.slice(1));
@@ -76,11 +74,7 @@ const LoginRegister = () => {
                         })
                         .catch(console.error);
                 };
-
-                // Now you have the access token, you can use it as needed
                 console.log('Access Token:', accessToken);
-
-                // You may want to clear the URL fragment to avoid displaying sensitive information
                 window.location.hash = '';
             }
         } catch (error) {
@@ -106,8 +100,8 @@ const LoginRegister = () => {
                 setErrorMessage('Please enter a password.');
                 return;
             }
-            
-            if(role === 'guest'){
+
+            if (role === 'guest') {
                 setRole('');
             }
             const response = await login(emailInput, passwordInput)
@@ -115,11 +109,9 @@ const LoginRegister = () => {
 
             if (response == 200) {
                 setErrorMessage('');
-
-                console.log('POST request successful');
             } else {
                 // Handle error response
-                console.error('POST request failed');
+                setErrorMessage('Login Failed');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -141,9 +133,16 @@ const LoginRegister = () => {
                 setErrorMessage('Please enter a password.');
                 return;
             }
-            await register(usernameCreate, emailCreate, passwordCreate)
-            setErrorMessage('');
-            setActiveTab('login');
+            const response = await register(usernameCreate, emailCreate, passwordCreate)
+            switch (response) {
+                case 200:
+                    setErrorMessage('');
+                    setActiveTab('login');
+                    break;
+                default:
+                    setErrorMessage('Registration Failed');
+            }
+
         } catch (error) {
             console.error('Error:', error);
         }
@@ -175,12 +174,12 @@ const LoginRegister = () => {
                                     <div className="single__account">
                                         <div className="input__box">
                                             <span>Email Address</span>
-                                            <input type="text" value={emailInput} onChange={handleEmailChange} />
+                                            <input type="text" value={emailInput} onChange={handleEmailChange}/>
                                         </div>
                                         <div className="input__box">
                                             <span>Password</span>
                                             <input type="password" value={passwordInput}
-                                                onChange={handlePasswordChange} />
+                                                   onChange={handlePasswordChange}/>
                                         </div>
                                         <div className="questions">
                                             <Link to={"/"}
@@ -190,20 +189,20 @@ const LoginRegister = () => {
                                         </div>
                                         <div className="submit_button">
                                             <button className="account__btn"
-                                                onClick={handleLoginClick}>
+                                                    onClick={handleLoginClick}>
                                                 Login
                                             </button>
                                             <button className="account__btn"
-                                                onClick={handleAnonymousClick}>
+                                                    onClick={handleAnonymousClick}>
                                                 Continue as a guest
                                             </button>
                                             <button onClick={handleDiscordAuthClick} className="discord-auth-button">
-                                                <FontAwesomeIcon icon={faDiscord} className="discord-icon" />
+                                                <FontAwesomeIcon icon={faDiscord} className="discord-icon"/>
                                                 Authenticate with Discord
                                             </button>
                                         </div>
                                         {errorMessage && (
-                                            <div style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</div>
+                                            <div style={{color: 'red', marginTop: '10px'}}>{errorMessage}</div>
                                         )}
                                     </div>
                                 </Tab.Pane>
@@ -216,16 +215,16 @@ const LoginRegister = () => {
                                         </div>
                                         <div className="input__box">
                                             <span>Email address</span>
-                                            <input type="email" value={emailCreate} onChange={handleEmailCChange} />
+                                            <input type="email" value={emailCreate} onChange={handleEmailCChange}/>
                                         </div>
                                         <div className="input__box">
                                             <span>Password</span>
                                             <input type="password" value={passwordCreate}
-                                                onChange={handlePasswordCChange} />
+                                                   onChange={handlePasswordCChange}/>
                                         </div>
                                         <button className="account__btn" onClick={handleRegisterClick}>Register</button>
                                         {errorMessage && (
-                                            <div style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</div>
+                                            <div style={{color: 'red', marginTop: '10px'}}>{errorMessage}</div>
                                         )}
                                     </div>
                                 </Tab.Pane>
