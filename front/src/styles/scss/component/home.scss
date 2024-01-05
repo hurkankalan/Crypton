@@ -1,0 +1,51 @@
+.home-container {
+    height: auto; // Adjusted to auto to accommodate the new sections
+    min-height: 100vh; // Ensure it covers at least the full screen height
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding-bottom: 2em; // Added padding at the bottom
+    
+    .welcome-message {
+      color: #ffffff;
+      width: 100%;
+      padding-top: 5em;
+
+      h1 {
+        font-size: 4rem;
+        margin-bottom: 0.5em;
+        color: white;
+      }
+
+      p {
+        font-size: 1.5rem;
+        margin-bottom: 2em; // Increased margin-bottom for spacing
+      }
+    }
+
+    .features {
+      display: flex;
+      justify-content: space-around; // This will space out your feature-announcement divs
+      flex-wrap: wrap; // This allows wrapping for smaller screens
+
+      .feature-announcement {
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 2em;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        width: 28%; // Adjusted for 3 side-by-side with spacing
+        margin: 1em; // Spacing between the divs
+
+        h2 {
+          color: #ffffff;
+          font-size: 2rem; // Slightly smaller font-size for better fit
+          margin-bottom: 0.5em;
+        }
+
+        p {
+          color: #d4cfcf;
+          font-size: 1rem; // Adjusted font-size for consistency
+        }
+      }
+    }
+}
