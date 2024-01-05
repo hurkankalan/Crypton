@@ -1,17 +1,16 @@
 import axios from 'axios';
 
 
-
 const API_URL = 'http://localhost:8000/users/';
 
 const Api = axios.create({
     baseURL: API_URL,
     headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin' : true
+        'Access-Control-Allow-Origin': true
     },
-    withCredentials:true
-    });
+    withCredentials: true
+});
 
 
 export const register = async (username: string, email: string, password: string) => {
@@ -21,7 +20,8 @@ export const register = async (username: string, email: string, password: string
             email,
             password,
         });
-        console.log("request success",response);
+        console.log(response)
+        return response.status;
     } catch (error) {
         console.log(error);
     }
@@ -29,7 +29,7 @@ export const register = async (username: string, email: string, password: string
 
 export const login = async (email: string, password: string) => {
     try {
-        console.log(email,password)
+        console.log(email, password)
 
         const response = await Api.post('login', {
             email,
@@ -43,7 +43,7 @@ export const login = async (email: string, password: string) => {
 }
 export const loginDiscord = async (username: string, email: string) => {
     try {
-        console.log(email,username)
+        console.log(email, username)
         const response = await Api.post('login/discord', {
             email,
             username

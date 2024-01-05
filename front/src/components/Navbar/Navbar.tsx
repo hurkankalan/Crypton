@@ -5,7 +5,7 @@ import { logout } from "../api/auth.api.tsx";
 // import logo from "./../../assets/crypton.png"
 
 export const Navbar: React.FC = () => {
-  const { username, role } = useGlobalContext();
+  const {username, role} = useGlobalContext();
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
@@ -68,6 +68,9 @@ export const Navbar: React.FC = () => {
           </div> :
           <>
             <div className={styles.navcontentRight}>
+              <NavLink to="/home/Currency" className={styles.navlink}>
+                Buy Crypto
+              </NavLink>
               <NavLink to="/home/wallet" className={styles.navlink}>
                 Wallet
               </NavLink>
