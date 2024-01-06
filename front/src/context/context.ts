@@ -12,6 +12,8 @@ export type Global = {
   setUserId : (UserId : number) => void
   bitcoin : number
   setBitcoin : (Bitcoin : number) => void
+  currency : string
+  setCurrency : (Currency : string) => void
 }
 export const MyGlobalContext = createContext<Global>({
 username: '',
@@ -25,7 +27,9 @@ setBalance : () => {},
 userId : 0,
 setUserId : () => {},
 bitcoin : 0,
-setBitcoin : () => {}
+setBitcoin : () => {},
+currency : '',
+setCurrency : () => {},
 })
 
 export const useGlobalContext = () => useContext(MyGlobalContext)

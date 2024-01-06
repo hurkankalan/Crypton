@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import Api from "../components/api/auth.api";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 import { useGlobalContext } from "../context/context";
+import { getUser } from "../components/api/auth.api";
 
 export type Props = {
     children: JSX.Element;
@@ -23,18 +24,28 @@ const Protected: React.FC<Props> = ({ children }) => {
 
 
     useEffect(() => {
-        if (cookies.token) {
-            const decodedToken = jwtDecode<MyTokenPayload>(cookies.token);
-            setUsername(decodedToken.username);
-            setRole(decodedToken.role);
-            setUserId(decodedToken.id);
-            setToken(cookies.token);
-            Api.defaults.headers.common["jwt"] = cookies.token;
-        } else {
-            setToken("");
-            setUsername("");
-        }
-        setIsLoading(false);
+        const fetchUser = async () => {
+            if (cookies.token) {
+                try {
+                    const decodedToken = jwtDecode<MyTokenPayload>(cookies.token);
+                    const id = decodedToken.id.toString();
+                    const response = await getUser(id);
+                    setUsername(response.username);
+                    setRole(response.role);
+                    setUserId(response.id);
+                    setToken(cookies.token);
+                    Api.defaults.headers.common["jwt"] = cookies.token;
+                } catch (error) {
+                    console.log(error);
+                }
+            } else {
+                setToken("");
+                setUsername("");
+            }
+            setIsLoading(false);
+        };
+
+        fetchUser();
     }, [cookies]);
 
     if (isLoading) {
