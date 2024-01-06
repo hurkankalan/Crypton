@@ -17,7 +17,7 @@ const Api = axios.create({
 export const getWallet = async (userId: number) => {
     try {
         const response = await Api.get(`${userId}`);
-        console.log("request success", response);
+        console.log("request success");
         return response.data;
     } catch (error) {
         console.log(error);

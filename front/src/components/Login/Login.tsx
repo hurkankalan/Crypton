@@ -56,12 +56,10 @@ const LoginRegister = () => {
         try {
             if ('access_token' in params) {
                 const accessToken = params['access_token'];
-                console.log()
                 window.onload = () => {
                     const fragment = new URLSearchParams(window.location.hash.slice(1));
                     console.log(fragment)
                     const [accessToken, tokenType] = [params['access_token'], params['token_type']];
-                    console.log({accessToken, tokenType})
                     fetch('https://discord.com/api/users/@me', {
                         headers: {
                             authorization: `${tokenType} ${accessToken}`,
@@ -135,7 +133,7 @@ const LoginRegister = () => {
             }
             const response = await register(usernameCreate, emailCreate, passwordCreate)
             switch (response) {
-                case 200:
+                case 201:
                     setErrorMessage('');
                     setActiveTab('login');
                     break;
