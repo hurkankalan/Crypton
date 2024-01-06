@@ -1,10 +1,38 @@
 import { useEffect, useState } from "react";
 import Api from "../api/admin.api";
+import "./AdminSection.scss";
 
 const AdminSection = () => {
   const [rssLinks, setRssLinks] = useState<any[]>([]);
   const [newRssLink, setNewRssLink] = useState("");
   const [articles, setArticles] = useState<any[]>([]);
+  const [cryptos, setCryptos] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchCryptos = async () => {
+      try {
+        const cryptos = await Api.getVisibleCryptos();
+        setCryptos(cryptos);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCryptos();
+  }, []);
+
+  const toggleCryptoVisibility = async (id: string, isVisible: boolean) => {
+    try {
+      await Api.setCryptoVisibility(id, !isVisible);
+      setCryptos((prevCryptos) =>
+        prevCryptos.map((crypto) =>
+          crypto.id === id ? { ...crypto, isvisibletoguests: !isVisible } : crypto
+        )
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -19,7 +47,7 @@ const AdminSection = () => {
     fetchArticles();
   }, []);
 
-  const toggleVisibility = async (id: string, isVisibleToGuests: boolean) => {
+  const toggleArticleVisibility = async (id: string, isVisibleToGuests: boolean) => {
     try {
       await Api.setVisibility(id, !isVisibleToGuests);
       setArticles((prevArticles) =>
@@ -67,16 +95,18 @@ const AdminSection = () => {
   return (
     <div className="adminSection">
       <h1>Admin Section</h1>
+      <h2>RSS Links:</h2>
       <input
         type="text"
         value={newRssLink}
         onChange={(e) => setNewRssLink(e.target.value)}
+        placeholder="Enter RSS link"
       />
       <button onClick={createRss}>Create RSS Link</button>
       <ul>
         {rssLinks && rssLinks.length > 0 ? (
           rssLinks.map((link) => (
-            <li key={link.id}>
+            <li key={link.id} className="rssLink">
               {link.url}
               <button onClick={() => removeRss(link.id)}>Remove</button>
             </li>
@@ -85,15 +115,15 @@ const AdminSection = () => {
           <p>No RSS links found.</p>
         )}
       </ul>
-      <h2>Articles</h2>
+      <h3>Articles:</h3>
       <ul>
         {articles && articles.length > 0 ? (
           articles.map((article) => (
-            <li key={article.id}>
+            <li key={article.id} className="articleItem">
               {article.title}
               <button
                 onClick={() =>
-                  toggleVisibility(article.id, article.isVisibleToGuests)
+                  toggleArticleVisibility(article.id, article.isVisibleToGuests)
                 }
               >
                 {article.visible ? "Hide" : "Show"}
@@ -102,6 +132,26 @@ const AdminSection = () => {
           ))
         ) : (
           <p>No articles found.</p>
+        )}
+      </ul>
+          <h4>Cryptos:</h4>
+      <ul>
+        {cryptos && cryptos.length > 0 ? (
+          cryptos.map((crypto) => (
+            <li key={crypto.id} className="cryptoItem">
+              <img src={crypto.imageurl} alt={crypto.name} className="logo-crypto"/>
+              {crypto.name}
+              <button
+                onClick={() =>
+                  toggleCryptoVisibility(crypto.id, crypto.isvisibletoguests)
+                }
+              >
+                {crypto.isvisibletoguests ? "Hide" : "Show"}
+              </button>
+            </li>
+          ))
+        ) : (
+          <p>No cryptos found.</p>
         )}
       </ul>
     </div>

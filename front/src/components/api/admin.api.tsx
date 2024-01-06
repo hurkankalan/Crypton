@@ -55,4 +55,21 @@ const setVisibility = async (id: string, isVisibleToGuests: boolean) => {
     }
 }
 
-export default { getRssLinks, createRssLink, deleteRssLink, getVisibleArticles, setVisibility};
+const getVisibleCryptos = async () => {
+    try {
+        const response = await Api.get('cryptos');
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const setCryptoVisibility = async (id: string, isVisibleToGuests: boolean) => {
+    try {
+        await Api.put(`cryptos/visibility/`, { id, isVisibleToGuests });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export default { getRssLinks, createRssLink, deleteRssLink, getVisibleArticles, setVisibility, getVisibleCryptos, setCryptoVisibility};

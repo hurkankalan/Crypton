@@ -16,7 +16,7 @@ const articleControllers = {
                 lowestPrice: 0,
                 highestPrice: 0,
                 imageUrl: '',
-                isVisibleToGuests: true
+                isvisibletoguests: true
             };
             await cryptosModels.create(crypto);
             res.status(200).json({ message: "Crypto created" });
@@ -39,6 +39,9 @@ const articleControllers = {
           if (cryptos.length === 0) {
             throw { status: 404, message: "Cryptos not found" };
           }
+          if ( req.isGuest === true) {
+            cryptos = cryptos.filter((cryptos) => cryptos.isvisibletoguests);
+          }
           res.status(200).json(cryptos);
         } catch (error) {
           console.error(error);
@@ -57,6 +60,9 @@ const articleControllers = {
           if (!crypto) {
             throw { status: 404, message: "Crypto not found" };
           }
+          if ( req.isGuest === true && !crypto.isvisibletoguests) {
+            throw { status: 401, message: "Unauthorized" };
+          }
           res.status(200).json(crypto);
         } catch (error) {
           console.error(error);
@@ -72,9 +78,12 @@ const articleControllers = {
         try {
           const cmid = decodeURIComponent(req.params.cmid);
           const period = decodeURIComponent(req.params.period);
-          const crypto = await cryptosModels.getCryptoHistory(cmid, period);
+          let crypto = await cryptosModels.getCryptoHistory(cmid, period);
           if (!crypto) {
             throw { status: 404, message: "Crypto not found" };
+          }
+          if ( req.isGuest === true) {
+            crypto = crypto.filter((crypto) => crypto.isvisibletoguests);
           }
           res.status(200).json(crypto);
         } catch (error) {
@@ -100,38 +109,21 @@ const articleControllers = {
         }
       },
 
-      async getAllCryptosNamesAndVisibilities(req: Request, res: Response) {
+      async setVisibility(req: Request, res: Response): Promise<void> {
+        if (!req.body.id || req.body.isVisibleToGuests === undefined) {
+          throw { status: 400, message: "One or more params are mising in body" };
+        }
         try {
-          const cryptos = await cryptosModels.getAll();
-          if (cryptos.length === 0) {
-            throw { status: 404, message: "Cryptos not found" };
-          }
-          const cryptosNamesAndVisibilities = cryptos.map((crypto) => {
-            return { id: crypto.id, name: crypto.name, visible: crypto.isVisibleToGuests };
-          });
-          res.status(200).json(cryptosNamesAndVisibilities);
+          const id = decodeURIComponent(req.body.id);
+          const isVisibleToGuests = req.body.isVisibleToGuests;
+          await cryptosModels.setVisibility(id, isVisibleToGuests);
+          res.status(200).json({ message: "Visibility updated" });
         } catch (error) {
           console.error(error);
           const status = (error as { status?: number }).status || 500;
           res.status(status).json({ error });
         }
       },
-
-      async setVisibility(req: Request, res: Response) {
-        if (!req.params.id || req.body.visible === undefined) {
-          throw { status: 400, message: "One or more params are mising in URL" };
-        }
-        try {
-          const id = decodeURIComponent(req.params.id);
-          const visible = req.body.visible;
-          await cryptosModels.setVisibility(id, visible);
-          res.status(200).json({ message: "Visibility set" });
-        } catch (error) {
-          console.error(error);
-          const status = (error as { status?: number }).status || 500;
-          res.status(status).json({ error });
-        }
-      }
 };
 
 export default articleControllers;

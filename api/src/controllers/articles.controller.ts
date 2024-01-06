@@ -16,6 +16,9 @@ const articleControllers = {
       if(req.cookies === undefined && !article.isvisibletoguests) {
         throw { status: 401, message: "Unauthorized" };
       }
+      if ( req.isGuest === true && !article.isvisibletoguests) {
+        throw { status: 401, message: "Unauthorized" };
+      }
       res.status(200).json(article);
     } catch (error) {
       console.error(error);
@@ -36,7 +39,6 @@ const articleControllers = {
       if (articles.length === 0) {
         throw { status: 404, message: "Articles not found" };
       }
-      console.log(req.isGuest);
       if ( req.isGuest === true) {
         articles = articles.filter((articles) => articles.isvisibletoguests);
       }
