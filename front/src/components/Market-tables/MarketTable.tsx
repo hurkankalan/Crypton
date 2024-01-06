@@ -6,7 +6,10 @@ import {useEffect, useState} from "react";
 import {useGlobalContext} from "../../context/context.ts";
 
 export default function MarketTable() {
-    const [CryptosUser, setCryptosUser] = useState([{}]);
+    const [CryptosUser, setCryptosUser] = useState([{
+        name:''
+}]);
+
     const {role} = useGlobalContext();
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -23,8 +26,9 @@ export default function MarketTable() {
         }
     };
     const filteredCryptos = CryptosUser.filter((crypto) =>
-        crypto.name.toLowerCase().includes(searchQuery.toLowerCase())
+        crypto.name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
     return (
         <div className="market__table bg--white pt--140 pb--120">
             <div className="container">
@@ -59,7 +63,7 @@ export default function MarketTable() {
                             <tbody>
                             {filteredCryptos &&
                                 filteredCryptos.map((single, key) => {
-                                    return <MarketTableSingle data={single as MarketTableData} key={key} role={role}/>;
+                                    return <MarketTableSingle data={single as MarketTableData} key={key} role={role} />;
                                 })}
                             </tbody>
                         </table>
