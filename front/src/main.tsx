@@ -8,7 +8,7 @@ import {MyGlobalContext} from './context/context.ts'
 
 /* Components */
 import Home from "./pages/Home";
-import MarketTable from "./components/market-tables/MarketTable.tsx";
+import MarketTable from "./components/Market-tables/MarketTable.tsx";
 import {ToastContainer} from "react-toastify";
 
 /* Styles */
