@@ -63,7 +63,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "wallet",
-                element: <Wallet username="CryptoFan123" currencyBalance={42}/>,
+                element: <Wallet/>,
             },
             {
                 path: "prediction",
@@ -81,7 +81,8 @@ const App: React.FC = () => {
     const [balance, setBalance] = useState<number>(0);
     const [userId, setUserId] = useState<number>(0);
     const [bitcoin, setBitcoin] = useState<number>(0);
-    const value = {username, setUsername, setToken, token, role, setRole, balance, setBalance, userId, setUserId, bitcoin, setBitcoin};
+    const [currency, setCurrency] = useState<string>("USD");
+    const value = {username, setUsername, setToken, token, role, setRole, balance, setBalance, userId, setUserId, bitcoin, setBitcoin,currency,setCurrency};
 
     return (
         <React.StrictMode>

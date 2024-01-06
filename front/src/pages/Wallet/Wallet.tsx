@@ -3,12 +3,9 @@ import styles from "./Wallet.module.scss";
 import { useGlobalContext } from '../../context/context';
 import { getWallet } from '../../components/api/wallet.api';
 
-interface WalletProps {
-  username: string;
-  currencyBalance: number;
-}
 
-const Wallet: React.FC<WalletProps> = () => {
+
+const Wallet: React.FC = () => {
     const {username,userId,setBalance,setBitcoin,balance,bitcoin} = useGlobalContext();
 
     useEffect(() => {

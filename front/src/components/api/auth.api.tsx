@@ -53,6 +53,31 @@ export const loginDiscord = async (username: string, email: string) => {
     }
 }
 
+export const updateUser = async (id: string, username: string, email: string, password: string, currency: string) => {
+    console.log(currency)
+    try {
+        const response = await Api.put(`${id}`, {
+            username,
+            email,
+            password,
+            currency,
+        });
+        console.log(response.data)
+        return response.status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getUser = async (id: string) => {
+    try {
+        const response = await Api.get(`${id}`);
+        return response.data[0];
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const logout = async () => {
     try {
         await Api.post('logout');

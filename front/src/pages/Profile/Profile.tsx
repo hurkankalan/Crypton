@@ -1,16 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "./Profile.module.scss";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
+import { updateUser } from "../../components/api/auth.api";
+import { MyGlobalContext } from "../../context/context";
 
 const Profile: React.FC = () => {
   const img = "https://www.w3schools.com/howto/img_avatar.png";
 
-  const [username, setUsername] = useState<string>("");
+  const [usernameUpdate, setUsernameUpdate] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [newKeyword, setNewKeyword] = useState<string>("");
-  const [keywords, setKeywords] = useState<string[]>([]); // Mise à jour pour utiliser l'état
+  const [keywords, setKeywords] = useState<string[]>([]); 
+  const [currencyUpdate, setCurrencyUpdate] = useState<string>("EUR");
+  const { userId ,setCurrency,username} = useContext(MyGlobalContext);
+
 
   useEffect(() => {
     // Charger les mots-clés depuis le local storage au démarrage
@@ -22,7 +27,7 @@ const Profile: React.FC = () => {
     console.log(e.target.name);
     switch (e.target.name) {
       case "username":
-        setUsername(e.target.value);
+        setUsernameUpdate(e.target.value);
         break;
       case "email":
         if (e.target.value.includes("@")) {
@@ -38,8 +43,23 @@ const Profile: React.FC = () => {
       case "newKeyword":
         setNewKeyword(e.target.value);
         break;
+      case "currencyUpdate":
+        setCurrencyUpdate(e.target.value);
+        setCurrency(e.target.value);
+        break;
     }
   };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    switch (e.target.name) {
+      case "currencyUpdate":
+        setCurrencyUpdate(e.target.value);
+        setCurrency(e.target.value);
+        break;
+    }
+  };
+
+
 
   const handleDeleteKeyword = (keywordToDelete: string) => {
     const updatedKeywords = keywords.filter(
@@ -58,12 +78,25 @@ const Profile: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // logic to submit form
-    if (username === "" || email === "" || password === "") {
+    if (usernameUpdate === "" || email === "" || password === "" || currencyUpdate === "") {
       toast.error("Please fill all the fields with valid informations");
     } else {
-      toast.success("Profile updated successfully");
+      const status = await updateUser(
+        userId.toString(), 
+        usernameUpdate,
+        email,
+        password,
+        currencyUpdate 
+      );
+  
+      if (status === 201) {
+        toast.success("Profile updated successfully");
+        window.location.reload(); // Refresh the page
+      } else {
+        toast.error("Failed to update profile");
+      }
     }
   };
   return (
@@ -71,7 +104,7 @@ const Profile: React.FC = () => {
       <div className={styles.topBar}>
         <div className={styles.topBarContent}>
           <img src={img} alt="" className={styles.profileImage} />
-          <h2 className={styles.username}>Username</h2>
+          <h2 className={styles.username}>{username}</h2>
         </div>
       </div>
       <div className={styles.form}>
@@ -103,6 +136,17 @@ const Profile: React.FC = () => {
               className={styles.input}
               onChange={handleFrom}
             />
+          </label>
+          <label className={styles.label}>
+            Currency
+            <select
+              className={styles.input}
+              name="currencyUpdate"
+              onChange={handleSelectChange}
+            >
+              <option value="EUR">EUR</option>
+              <option value="USD">USD</option>
+            </select>
           </label>
           <label className={styles.label}>
             Keywords
