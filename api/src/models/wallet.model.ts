@@ -16,14 +16,14 @@ const walletModels = {
   },
 
   updateAccountAmount(accountAmount: number, id: number): Promise<QueryResult> {
-    return pool.query("UPDATE wallet SET accountAmount = $1 WHERE id = $2", [
+    return pool.query("UPDATE wallet SET accountAmount = $1 WHERE usersid = $2", [
       accountAmount,
       id,
     ]);
   },
 
   updateBtcAmount(btcAmount: number, id: number): Promise<QueryResult> {
-    return pool.query("UPDATE wallet SET btcAmount = $1 WHERE id = $2", [
+    return pool.query("UPDATE wallet SET btcAmount = $1 WHERE usersid = $2", [
       btcAmount,
       id,
     ]);
