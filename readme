@@ -2,7 +2,7 @@
 
 Crypton is an application which offers a functionality using artificial intelligence (AI) to predict the price of bitcoin and which provides information on the news, price and amount of cryptocurrencies with the possibility of purchasing them (React.js, Node.js, Python, PostgreSQL)
 
-![Logo Crypton](front/src/assets/crypton.png)
+<img src="/front/src/assets/crypton.png" alt="Crypton logo" style="height: 100px; width:100px;"/>
 
 ## Start the project with Docker Compose
 
