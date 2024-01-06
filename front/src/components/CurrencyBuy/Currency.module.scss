@@ -25,9 +25,11 @@ input {
 .btn-crypto-buy {
   display: flex;
   align-items: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
   justify-content: center;
   padding: 15px; /* Adjust padding for a larger button */
-  background-color: #3498db;
+  background-color: #F9D021;
   color: #ffffff;
   border: none;
   cursor: pointer;
@@ -37,7 +39,7 @@ input {
 }
 
 .btn-crypto-buy:hover {
-  background-color: #2980b9;
+  background-color: #D3B11B;
 }
 
 .btn-crypto-buy:active {

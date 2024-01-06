@@ -5,7 +5,14 @@ import styles from "./Currency.module.scss"
 import {SyntheticEvent} from 'react';
 
 import {ChangeEvent, useState, useEffect, useContext} from 'react';
-import {GetCryptoValue, SellBitcoins, UpdateWallet, UpdateWalletMoney} from "../api/crypto.api.tsx";
+import {
+    BuyAllBitcoins,
+    GetCryptoValue,
+    SellAllBitcoins,
+    SellBitcoins,
+    UpdateWallet,
+    UpdateWalletMoney
+} from "../api/crypto.api.tsx";
 import {MyGlobalContext} from "../../context/context.ts";
 import ShortPopup from './ShortPopUp.tsx';
 
@@ -16,14 +23,12 @@ const CurrencyBuy = () => {
     const [activeTab, setActiveTab] = useState('BuyCrypto');
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const exchangeRateToEuro = 0.90;
-    const exchangeRateToDollar = 1.10;
+    const exchangeRateToEuro = 0.91;
+    const exchangeRateToDollar = 1.09;
     const openPopup = () => setPopupOpen(true);
     const closePopup = () => setPopupOpen(false);
     const {userId} = useContext(MyGlobalContext);
-    function isFloat(value:string) {
-        return !Number.isInteger(parseInt(value));
-    }
+
     useEffect(() => {
         fetchCryptoPrice()
     }, []);
@@ -56,8 +61,15 @@ const CurrencyBuy = () => {
     };
     //WALLET FILL
     const [fillAmount, setFillAmount] = useState('0');
+    const [buttonMessage, setbuttonMessage] = useState('Get some free money');
+
     const handleFillAmount = (event: ChangeEvent<HTMLInputElement>) => {
         setFillAmount(event.target.value);
+        if (parseInt(event.target.value) < 0) {
+            setbuttonMessage('Give your cash back')
+        } else {
+            setbuttonMessage('Get some free money')
+        }
     };
     const handleFillWallet = async () => {
         try {
@@ -72,8 +84,8 @@ const CurrencyBuy = () => {
     }
     //CRYPTO BUY
     const [selectedValue, setSelectedValue] = useState('Dollar');
-    const [CryptoValue, setCryptoValue] = useState('');
-    const [amountOfMoney, setAmmountOfMoulla] = useState('0');
+    const [cryptoValue, setCryptoValue] = useState('');
+    const [amountOfMoney, setAmountOfMoney] = useState('0');
     const [amountOfBitcoins, setAmountOfBitcoins] = useState('0');
     const [blockFirstInput, setBlockFirstInput] = useState(false);
     const [blockSecondInput, setBlockSecondInput] = useState(false);
@@ -84,9 +96,12 @@ const CurrencyBuy = () => {
         const amount = parseInt(amountOfMoney)
         fetchCryptoPrice(event.target.value);
         if (event.target.value == "Dollar") {
-            setAmmountOfMoulla((amount * exchangeRateToDollar).toString());
+            setAmountOfMoney((amount * exchangeRateToDollar).toString());
+            setAmountOfBitcoins(`${amount / (parseInt(cryptoValue) * exchangeRateToDollar)}`)
         } else {
-            setAmmountOfMoulla((amount * exchangeRateToEuro).toString());
+            setAmountOfMoney((amount * exchangeRateToEuro).toString());
+            console.log(amountOfMoney, cryptoValue)
+            setAmountOfBitcoins(`${amount / (parseInt(cryptoValue) * exchangeRateToEuro)}`)
         }
     };
     const handleMoneyValue = (event: ChangeEvent<HTMLInputElement>) => {
@@ -94,8 +109,8 @@ const CurrencyBuy = () => {
         setBlockSecondInput(true);
         const inputValue = event.target.value;
         const newValue = parseInt(inputValue) < 0 ? "0" : inputValue;
-        setAmmountOfMoulla(newValue);
-        setAmountOfBitcoins(`${parseInt(newValue) / parseInt(CryptoValue)}`)
+        setAmountOfMoney(newValue);
+        setAmountOfBitcoins(`${parseInt(newValue) / parseInt(cryptoValue)}`)
         if (!event.target.value) {
             setBlockSecondInput(false);
             setBlockClick(true);
@@ -107,7 +122,7 @@ const CurrencyBuy = () => {
         setErrorMessage('');
         setBlockFirstInput(true);
         setAmountOfBitcoins(event.target.value);
-        setAmmountOfMoulla(`${parseInt(event.target.value) * parseInt(CryptoValue)}`)
+        setAmountOfMoney(`${parseInt(event.target.value) * parseInt(cryptoValue)}`)
         if (!event.target.value || event.target.value == "0") {
             setBlockFirstInput(false);
             setBlockClick(true);
@@ -119,33 +134,40 @@ const CurrencyBuy = () => {
     const handleCryptoBuy = async () => {
         try {
             setErrorMessage('');
-            if (!amountOfMoney || parseInt(amountOfMoney) < 1) {
-                setAmmountOfMoulla('');
+            if (!amountOfMoney || parseInt(amountOfMoney) < 0) {
+                setAmountOfMoney('');
                 setAmountOfBitcoins('');
                 setErrorMessage('The money field must be valid');
                 return;
             }
-            if (!amountOfBitcoins || parseInt(amountOfBitcoins) < 1) {
+            if (!amountOfBitcoins || parseInt(amountOfBitcoins) < 0) {
                 setErrorMessage('The bitcoin field must be valid');
                 return;
             }
 
             let amountOfDollars;
             if (selectedValue == "Dollar") {
-                if(isFloat(amountOfBitcoins)){
-                    setAmountOfBitcoins(Math.floor(parseInt(amountOfBitcoins)).toString())
-                    setAmmountOfMoulla(`${Math.floor(parseInt(amountOfBitcoins)) * parseInt(CryptoValue)}`);
-                }
+
                 amountOfDollars = amountOfMoney;
             } else {
-                if(isFloat(amountOfBitcoins)){
-                    setAmountOfBitcoins(Math.floor(parseInt(amountOfBitcoins)).toString())
-                    setAmmountOfMoulla(`${Math.floor(parseInt(amountOfBitcoins)) * parseInt(CryptoValue)}`);
-                }
+
                 amountOfDollars = (parseInt(amountOfMoney) * exchangeRateToDollar).toString();
             }
             const response = await UpdateWalletMoney(userId, amountOfDollars, amountOfBitcoins)
             setBlockClick(true);
+            if (response) {
+                openPopup()
+            } else {
+                setErrorMessage('Exchange failed, amount of money is not enough');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+    const handleCryptoBuyAll = async () => {
+        try {
+            setErrorMessage('');
+            const response = await BuyAllBitcoins(userId, parseFloat(cryptoValue))
             if (response) {
                 openPopup()
             } else {
@@ -164,7 +186,7 @@ const CurrencyBuy = () => {
         // Check if the entered value is greater than or equal to the minimum allowed value
         if (!isNaN(inputValue) && inputValue >= 0) {
             setAmountOfBitcoinsToSell(event.target.value);
-            setAmountOfDollarsRecieved(`${parseInt(event.target.value) * parseInt(CryptoValue)}`)
+            setAmountOfDollarsRecieved(`${parseInt(event.target.value) * parseInt(cryptoValue)}`)
             setBlockClickSell(false);
         } else {
             setAmountOfDollarsRecieved('')
@@ -188,9 +210,22 @@ const CurrencyBuy = () => {
             console.error('Error:', error);
         }
     }
+    const handleCryptoSellAll = async () => {
+        try {
+            setErrorMessage('');
+            const response = await SellAllBitcoins(userId, parseFloat(cryptoValue))
+            if (response) {
+                openPopup()
+            } else {
+                setErrorMessage('Exchange failed, amount of money is not enough');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     return (
-        <div className="dg__account section-padding--xl">
+        <div className={styles["dg__account"]}>
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12">
@@ -213,10 +248,10 @@ const CurrencyBuy = () => {
                                     <div className="main">
                                         <h6>Get some digital cash</h6>
                                         <div className="form-field">
-                                            <label>How much do you want?</label>
+                                            <label>How many $Dollars do you want?</label>
                                             <input type="number" className="dollar" onChange={handleFillAmount}/></div>
                                         <button onClick={handleFillWallet} className={styles['btn-crypto-buy']}>
-                                            free money
+                                            {buttonMessage}
                                         </button>
                                         {isPopupOpen && <ShortPopup onClose={closePopup}/>}
 
@@ -226,6 +261,10 @@ const CurrencyBuy = () => {
                                     <div className="main">
                                         <div className="form-field">
                                             <h6>Buy currency</h6>
+                                            <button onClick={handleCryptoBuyAll}
+                                                    className={styles['btn-crypto-buy']}>
+                                                Use all your money to buy cryptocurrency
+                                            </button>
                                             <label htmlFor="dropdown">Select currency:</label>
                                             <select id="dropdown" value={selectedValue}
                                                     onChange={handleSelectChange}>
@@ -233,7 +272,7 @@ const CurrencyBuy = () => {
                                                 <option value="Euro">Euro</option>
                                             </select>
                                             <label>Pay</label>
-                                            <p>{`Current value of the bitcoin is: 1 bitcoin for ${CryptoValue} ${selectedValue}`}
+                                            <p>{`Current value of the bitcoin is: 1 bitcoin for ${cryptoValue} ${selectedValue}`}
                                             </p>
                                             <input type="number" className="dollar" onChange={handleMoneyValue}
                                                    disabled={blockFirstInput}
@@ -250,6 +289,7 @@ const CurrencyBuy = () => {
                                                 className={styles['btn-crypto-buy']}>
                                             Buy crypto
                                         </button>
+
                                         {isPopupOpen && <ShortPopup onClose={closePopup}/>}
                                         {errorMessage && (
                                             <div style={{color: 'red', marginTop: '10px'}}>{errorMessage}</div>
@@ -259,6 +299,10 @@ const CurrencyBuy = () => {
                                 <Tab.Pane eventKey="SellCrypto">
                                     <div className="main">
                                         <h6>Sell currency</h6>
+                                        <button onClick={handleCryptoSellAll}
+                                                className={styles['btn-crypto-buy']}>
+                                            Sell all your cryptocurrency
+                                        </button>
                                         <div className="form-field">
                                             <label>Amount of bitcoins do sell</label>
                                             <input type="number" className="bitcoin" onChange={handleChangeBitcoinSell}

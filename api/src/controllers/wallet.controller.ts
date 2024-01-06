@@ -123,7 +123,7 @@ const walletControllers = {
                 parseInt(userId)
             );
 
-            const currentBtcAmount = walletValuesArray[3] + parseInt(btcAmount);
+            const currentBtcAmount = parseFloat((walletValuesArray[3] + parseFloat(btcAmount)).toFixed(10));
             const balance = await walletModels.updateBtcAmount(
                 currentBtcAmount,
                 parseInt(userId)
