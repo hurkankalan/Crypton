@@ -13,7 +13,7 @@ const articleControllers = {
       if (!article) {
         throw { status: 404, message: "Article not found" };
       }
-      if(req.cookies === undefined && !article.isVisibleToGuests) {
+      if(req.cookies === undefined && !article.isvisibletoguests) {
         throw { status: 401, message: "Unauthorized" };
       }
       res.status(200).json(article);
@@ -36,8 +36,9 @@ const articleControllers = {
       if (articles.length === 0) {
         throw { status: 404, message: "Articles not found" };
       }
-      if (req.cookies === undefined) {
-        articles = articles.filter((article) => article.isVisibleToGuests);
+      console.log(req.isGuest);
+      if ( req.isGuest === true) {
+        articles = articles.filter((articles) => articles.isvisibletoguests);
       }
       res.status(200).json(articles);
     } catch (error) {
@@ -54,7 +55,7 @@ const articleControllers = {
         throw { status: 404, message: "Articles not found" };
       }
       const articlesTitlesAndVisibilities = articles.map((article) => {
-        return { id: article.id, title: article.title, visible: article.isVisibleToGuests };
+        return { id: article.id, title: article.title, visible: article.isvisibletoguests };
       });
       res.status(200).json(articlesTitlesAndVisibilities);
     } catch (error) {

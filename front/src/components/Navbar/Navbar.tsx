@@ -22,22 +22,6 @@ export const Navbar: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.navbar}>
-        {role === "admin" ?
-          <>
-          <div className={styles.navcontentLeft}>
-            <NavLink to="/home" className={styles.logo}>
-            {/* <img src={logo} alt="Crypton Logo" />  */}
-            </NavLink>
-            <div className={styles.navlinks}>
-              <NavLink to="#" className={styles.navlink}>
-                Crypto List
-              </NavLink>
-              <NavLink to="#" className={styles.navlink}>
-                Rss Feed
-              </NavLink>
-            </div>
-          </div>
-        </> : 
           <>
             <div className={styles.navcontentLeft}>
             <NavLink to="/home" className={styles.logo}>
@@ -59,7 +43,6 @@ export const Navbar: React.FC = () => {
               </div>
             </div>
           </>
-        }
         {role === "guest" ?
           <div className={styles.navcontentRight}>
             <NavLink to={""} className={styles.navlink} onClick={handleLogin}>

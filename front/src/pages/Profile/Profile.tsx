@@ -4,6 +4,7 @@ import { IoCloseCircleSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { updateUser } from "../../components/api/auth.api";
 import { MyGlobalContext } from "../../context/context";
+import AdminSection from "../../components/adminSection/adminSection";
 
 const Profile: React.FC = () => {
   const img = "https://www.w3schools.com/howto/img_avatar.png";
@@ -174,6 +175,7 @@ const Profile: React.FC = () => {
           </button>
         </div>
       </div>
+      <AdminSection />
     </div>
   );
 };
