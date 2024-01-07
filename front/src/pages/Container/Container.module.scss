@@ -1,9 +1,11 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    .Footer {
-      margin-top: auto;
-      width: 100%;
-    }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  //background:#222B32 ;
+
+  .Footer {
+    margin-top: auto;
+    width: 100%;
   }
+}
