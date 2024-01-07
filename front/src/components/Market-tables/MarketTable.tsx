@@ -1,7 +1,7 @@
 import {MarketTableData} from "./MarketTableSingle.js";
 import MarketTableSingle from "./MarketTableSingle.js";
 import "./MarketTable.Module.scss"
-import {GetCryptosUser} from "../api/crypto.api.tsx";
+import {GetCryptosUser, GetFavoriteCryptosUser} from "../api/crypto.api.tsx";
 import {useEffect, useState} from "react";
 import {useGlobalContext} from "../../context/context.ts";
 
@@ -12,19 +12,47 @@ export default function MarketTable() {
 
     const {role} = useGlobalContext();
     const [searchQuery, setSearchQuery] = useState("");
-
+    const [favoriteCryptos, setFavoriteCryptos]= useState([{
+        name:''
+    }]);
+    type ArrayOfObjects = {
+        id: number; // Adjust the type of 'id' accordingly
+        name: string; // Adjust the type of 'name' accordingly
+        // Add other properties as needed
+    };
+    const excludeObjectsWithSameId = (
+        array1: ArrayOfObjects[],
+        array2: ArrayOfObjects[]
+    ): ArrayOfObjects[] => {
+        const idsToRemove = new Set(array1.map(obj => obj.id));
+        return array2.filter(obj => !idsToRemove.has(obj.id));
+    };
     useEffect(() => {
         fetchCryptoData()
+
     }, []);
     const fetchCryptoData = async () => {
         try {
-            const value = await GetCryptosUser();
+            let value = await GetCryptosUser();
+            const cryptosFromStorage = JSON.parse(localStorage.getItem("favoriteCrypto") || "[]");
+            // const cryptosFromStorage = "bitcoin,ethereum,dogecoin";
+
+            const result = await GetFavoriteCryptosUser(cryptosFromStorage);
+            if(!result){
+                setCryptosUser(value);
+                return;
+            }
+            value=excludeObjectsWithSameId(result,value)
             setCryptosUser(value);
+            setFavoriteCryptos(result);
             return;
         } catch (error) {
             console.error('Error:', error);
         }
     };
+    const filteredFavoriteCryptos = favoriteCryptos.filter((crypto) =>
+        crypto.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
     const filteredCryptos = CryptosUser.filter((crypto) =>
         crypto.name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -48,7 +76,7 @@ export default function MarketTable() {
                             <tr>
                                 <th className="market-symbol">
                                 </th>
-                                <th className="market-name">Name &amp; SYmble</th>
+                                <th className="market-name">Name &amp; Symbole</th>
                                 <th className="market-current-price">
                                     <span className="nobr">Current Price</span>
                                 </th>
@@ -61,6 +89,10 @@ export default function MarketTable() {
                             </tr>
                             </thead>
                             <tbody>
+                            {filteredFavoriteCryptos &&
+                                filteredFavoriteCryptos.map((single, key) => {
+                                    return <MarketTableSingle data={single as MarketTableData} key={key} role={"admin"} />;
+                                })}
                             {filteredCryptos &&
                                 filteredCryptos.map((single, key) => {
                                     return <MarketTableSingle data={single as MarketTableData} key={key} role={role} />;

@@ -29,6 +29,15 @@ export const GetCryptosUser = async () => {
         console.log(error);
     }
 };
+export const GetFavoriteCryptosUser = async (favoriteCryptos:string) => {
+    try {
+        const urlAddon ='?cmids='+ favoriteCryptos
+        const response = await Api.get(`${urlAddon}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
 export const GetCryptosHistory = async (cryptoId: string) => {
     try {
         const response = await Api.get(`${cryptoId}/history/:minute`);

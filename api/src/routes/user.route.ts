@@ -18,6 +18,6 @@ allUserRouter.put(
     allUserRouter.get("/email/:email", userControllers.userByEmail);
     allUserRouter.post("/login", userControllers.login);
     allUserRouter.post("/login/discord", userControllers.loginWithDiscord);
-    allUserRouter.post("/logout", verifyToken, userControllers.logout);
+    allUserRouter.post("/logout", userControllers.logout);
 
 export default allUserRouter;

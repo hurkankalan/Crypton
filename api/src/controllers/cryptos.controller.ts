@@ -96,7 +96,6 @@ const articleControllers = {
       async deleteCrypto(req: Request, res: Response) {
         try {
           if (!req.params.id) {
-            console.log(req.params);
             throw { status: 400, message: "One or more params are mising in URL" };
           }
           const id = decodeURIComponent(req.params.id);

@@ -54,6 +54,11 @@ const articleModels = {
     const res = await pool.query(query, values);
     return res.rows;
   },
+
+  deleteAll: async (): Promise<void> => {
+    let query = 'DELETE FROM articles';
+    await pool.query(query);
+  }
 };
 
 export default articleModels;
