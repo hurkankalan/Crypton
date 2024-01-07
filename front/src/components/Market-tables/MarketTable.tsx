@@ -34,9 +34,8 @@ export default function MarketTable() {
     const fetchCryptoData = async () => {
         try {
             let value = await GetCryptosUser();
-            //TODO prendre en compte le storage
-            //const cryptosFromStorage = JSON.parse(localStorage.getItem("cryptos") || "[]");
-            const cryptosFromStorage = "bitcoin,ethereum,dogecoin";
+            const cryptosFromStorage = JSON.parse(localStorage.getItem("favoriteCrypto") || "[]");
+            // const cryptosFromStorage = "bitcoin,ethereum,dogecoin";
 
             const result = await GetFavoriteCryptosUser(cryptosFromStorage);
             if(!result){

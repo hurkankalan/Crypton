@@ -92,8 +92,8 @@ const Profile: React.FC = () => {
   };
 
   const handleAddFavoriteCrypto = () => {
-    if(newFavoriteCrypto.length < 3){
-      toast.error("Please enter a valid crypto name");
+    if(newFavoriteCrypto.length <= 3){
+      toast.error("Please enter a valid crypto name or the entire name");
     }
     else{
       const lowerCaseFavoriteCrypto = newFavoriteCrypto.toLowerCase();
@@ -101,7 +101,7 @@ const Profile: React.FC = () => {
         const updatedFavoriteCrypto = [...favoriteCrypto, lowerCaseFavoriteCrypto];
         setFavoriteCrypto(updatedFavoriteCrypto);
         localStorage.setItem("favoriteCrypto", JSON.stringify(updatedFavoriteCrypto));
-        setNewFavoriteCrypto("");
+        setNewFavoriteCrypto(""); // Réinitialiser le champ après l'ajout
       }
     }
   }
