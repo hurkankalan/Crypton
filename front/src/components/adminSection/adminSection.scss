@@ -1,0 +1,64 @@
+.adminSection {
+    background-color: #ffffff; // Dark black background
+    color: #000000; // White text color for contrast
+    font-family: 'Arial', sans-serif; // A standard, clean font
+    padding: 20px;
+    border: 1px solid #333333; // Border to separate the section from the rest of the page
+    margin-top: 20px;
+
+    h1{
+        color: #495057;
+        font-size: 40px;
+    }
+  
+    h2, h3, h4 {
+      color: #495057;
+      font-size: 30px;
+    }
+  
+    input[type="text"] {
+      background-color: #ffffff; // Slightly lighter black for input fields
+      color: rgb(0, 0, 0);
+      border: none;
+      padding: 10px;
+      margin: 10px 0;
+      width: 80%;
+      border: 1px solid #333333; // Border to separate items
+    }
+  
+    button {
+      background-color: #1E90FF; // Dark blue for buttons
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin: 10px 0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  
+      &:hover {
+        background-color: #4169E1; // Slightly lighter blue on hover
+      }
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+  
+      li {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #333333; // Border to separate items
+        padding: 10px 0;
+  
+        .logo-crypto {
+          max-width: 50px; // Ensures the crypto logos are not too large
+          margin-right: 10px;
+        }
+      }
+    }
+  
+    .rssLink, .articleItem, .cryptoItem {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }

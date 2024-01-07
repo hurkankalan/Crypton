@@ -13,6 +13,18 @@ import crypto from "./img/crypto.jpeg";
 import bitcoin_smartphone from "./img/bitcoin_smartphone.jpg";
 import blockchain from "./img/blockchain.jpeg";
 import "./Article.scss";
+import axios from "axios";
+
+const API_URL = 'http://localhost:8000/articles/search';
+
+const Api = axios.create({
+    baseURL: API_URL,
+    headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': true
+    },
+    withCredentials: true
+});
 
 // Nombre d'articles à afficher par page
 const ArticlesPerPage = 9;
@@ -66,8 +78,8 @@ const Article: React.FC = () => {
         url += `?keyword=${encodeURIComponent(keywordsParam)}`;
       }
 
-      const response = await fetch(url);
-      const fetchedArticles = await response.json();
+      const response = await Api.get(url);
+      const fetchedArticles = response.data;
 
       // Vérifier si la réponse est un tableau
       if (!Array.isArray(fetchedArticles)) {
