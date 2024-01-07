@@ -14,6 +14,8 @@ const Profile: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [newKeyword, setNewKeyword] = useState<string>("");
   const [keywords, setKeywords] = useState<string[]>([]); 
+  const [favoriteCrypto, setFavoriteCrypto] = useState<string[]>([]);
+  const [newFavoriteCrypto, setNewFavoriteCrypto] = useState<string>("");
   const [currencyUpdate, setCurrencyUpdate] = useState<string>("EUR");
   const { userId ,setCurrency,username} = useContext(MyGlobalContext);
 
@@ -22,6 +24,8 @@ const Profile: React.FC = () => {
     // Charger les mots-clés depuis le local storage au démarrage
     const storedKeywords = JSON.parse(localStorage.getItem("keywords") || "[]");
     setKeywords(storedKeywords);
+    const storedFavoriteCrypto = JSON.parse(localStorage.getItem("favoriteCrypto") || "[]");
+    setFavoriteCrypto(storedFavoriteCrypto);
   }, []);
 
   const handleFrom = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +74,14 @@ const Profile: React.FC = () => {
     localStorage.setItem("keywords", JSON.stringify(updatedKeywords));
   };
 
+  const handleDeleteFavoriteCrypto = (favoriteCryptoToDelete: string) => {
+    const updatedFavoriteCrypto = favoriteCrypto.filter(
+      (favoriteCrypto) => favoriteCrypto !== favoriteCryptoToDelete
+    );
+    setFavoriteCrypto(updatedFavoriteCrypto);
+    localStorage.setItem("favoriteCrypto", JSON.stringify(updatedFavoriteCrypto));
+  }
+
   const handleAddKeyword = () => {
     if (newKeyword && !keywords.includes(newKeyword)) {
       const updatedKeywords = [...keywords, newKeyword];
@@ -78,6 +90,21 @@ const Profile: React.FC = () => {
       setNewKeyword(""); // Réinitialiser le champ après l'ajout
     }
   };
+
+  const handleAddFavoriteCrypto = () => {
+    if(newFavoriteCrypto.length < 3){
+      toast.error("Please enter a valid crypto name");
+    }
+    else{
+      const lowerCaseFavoriteCrypto = newFavoriteCrypto.toLowerCase();
+      if (lowerCaseFavoriteCrypto && !favoriteCrypto.includes(lowerCaseFavoriteCrypto)) {
+        const updatedFavoriteCrypto = [...favoriteCrypto, lowerCaseFavoriteCrypto];
+        setFavoriteCrypto(updatedFavoriteCrypto);
+        localStorage.setItem("favoriteCrypto", JSON.stringify(updatedFavoriteCrypto));
+        setNewFavoriteCrypto("");
+      }
+    }
+  }
 
   const handleSubmit = async () => {
     // logic to submit form
@@ -164,6 +191,27 @@ const Profile: React.FC = () => {
                 <div key={index} className={styles.keyword}>
                   {keyword}
                   <button onClick={() => handleDeleteKeyword(keyword)}>
+                    <IoCloseCircleSharp />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </label>
+          <label className={styles.label}>
+            Crypto favoris
+            <input
+              type="text"
+              value={newFavoriteCrypto}
+              onChange={(e) => setNewFavoriteCrypto(e.target.value)}
+              placeholder="Ajouter une crypto favoris"
+              className={styles.input}
+            />
+            <button onClick={handleAddFavoriteCrypto}>Ajouter</button>
+            <div className={styles.keywords}>
+              {favoriteCrypto.map((favoriteCrypto, index) => (
+                <div key={index} className={styles.keyword}>
+                  {favoriteCrypto}
+                  <button onClick={() => handleDeleteFavoriteCrypto(favoriteCrypto)}>
                     <IoCloseCircleSharp />
                   </button>
                 </div>
