@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { updateUser } from "../../components/api/auth.api";
 import { MyGlobalContext } from "../../context/context";
 import AdminSection from "../../components/adminSection/adminSection";
+import { useGlobalContext } from '../../context/context.ts'
+
 
 const Profile: React.FC = () => {
   const img = "https://www.w3schools.com/howto/img_avatar.png";
@@ -17,7 +19,8 @@ const Profile: React.FC = () => {
   const [favoriteCrypto, setFavoriteCrypto] = useState<string[]>([]);
   const [newFavoriteCrypto, setNewFavoriteCrypto] = useState<string>("");
   const [currencyUpdate, setCurrencyUpdate] = useState<string>("EUR");
-  const { userId ,setCurrency,username} = useContext(MyGlobalContext);
+  const { userId , setCurrency, username } = useContext(MyGlobalContext);
+  const { role } = useGlobalContext();
 
 
   useEffect(() => {
@@ -223,7 +226,9 @@ const Profile: React.FC = () => {
           </button>
         </div>
       </div>
-      <AdminSection />
+      { role === "admin" ?
+        <AdminSection />
+      : null}
     </div>
   );
 };

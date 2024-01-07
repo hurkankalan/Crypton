@@ -76,7 +76,7 @@ export default function MarketTable() {
                             <tr>
                                 <th className="market-symbol">
                                 </th>
-                                <th className="market-name">Name &amp; SYmble</th>
+                                <th className="market-name">Name &amp; Symbole</th>
                                 <th className="market-current-price">
                                     <span className="nobr">Current Price</span>
                                 </th>

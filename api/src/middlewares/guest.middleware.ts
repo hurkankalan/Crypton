@@ -10,7 +10,6 @@ declare global {
 
 export function isGuest(req: Request, res: Response, next: NextFunction) {
         const { token } = req.cookies;
-        console.log(token);
         try {
                 if (token) {
                         req.isGuest = false;

@@ -26,6 +26,7 @@ let pressReview: Article[] = [];
 
 const updatePressReview = async () => {
   try {
+    articleModels.deleteAll();
     const rssFeedUrls = await getRssUrls();
     for (const url of rssFeedUrls) {
       const feed = await parser.parseURL(url);

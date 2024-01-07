@@ -8,17 +8,14 @@ const AdminSection = () => {
   const [articles, setArticles] = useState<any[]>([]);
   const [cryptos, setCryptos] = useState<any[]>([]);
 
-
-
   const [currentPage, setCurrentPage] = useState(1);
-  const cryptosPerPage = 10; // Change this to the number of cryptos you want per page
+  const cryptosPerPage = 10;
 
   const indexOfLastCrypto = currentPage * cryptosPerPage;
   const indexOfFirstCrypto = indexOfLastCrypto - cryptosPerPage;
   const currentCryptos = cryptos.slice(indexOfFirstCrypto, indexOfLastCrypto);
 
   const totalPages = Math.ceil(cryptos.length / cryptosPerPage);
-
   const handlePageChange = (pageNumber: SetStateAction<number> ) => setCurrentPage(pageNumber);
 
 
