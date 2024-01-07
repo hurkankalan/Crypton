@@ -35,7 +35,7 @@ export const Navbar: React.FC = () => {
                   Markets
                 </NavLink>
                 <NavLink to="/home/Article" className={styles.navlink}>
-                  Blog
+                  Articles
                 </NavLink>
                 <NavLink to="/home/prediction" className={styles.navlink}>
                   Prediction
