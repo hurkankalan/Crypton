@@ -9,7 +9,7 @@ export interface MarketTableData {
 }
 
 const MarketTableSingle: React.FC<{ data: MarketTableData; role: string  }> = ({ data,role }) => {
-    if (role === "guest" && !data.isvisibletoguests) {
+    if ((role === "guest"||role ==="user") && !data.isvisibletoguests) {
         return null; // Return nothing for non-visible data to guests
     }
     return (
