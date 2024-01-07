@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Api from "../api/admin.api";
 import "./AdminSection.scss";
 
@@ -7,6 +7,20 @@ const AdminSection = () => {
   const [newRssLink, setNewRssLink] = useState("");
   const [articles, setArticles] = useState<any[]>([]);
   const [cryptos, setCryptos] = useState<any[]>([]);
+
+
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const cryptosPerPage = 10; // Change this to the number of cryptos you want per page
+
+  const indexOfLastCrypto = currentPage * cryptosPerPage;
+  const indexOfFirstCrypto = indexOfLastCrypto - cryptosPerPage;
+  const currentCryptos = cryptos.slice(indexOfFirstCrypto, indexOfLastCrypto);
+
+  const totalPages = Math.ceil(cryptos.length / cryptosPerPage);
+
+  const handlePageChange = (pageNumber: SetStateAction<number> ) => setCurrentPage(pageNumber);
+
 
   useEffect(() => {
     const fetchCryptos = async () => {
@@ -134,12 +148,12 @@ const AdminSection = () => {
           <p>No articles found.</p>
         )}
       </ul>
-          <h4>Cryptos:</h4>
+      <h4>Cryptos:</h4>
       <ul>
-        {cryptos && cryptos.length > 0 ? (
-          cryptos.map((crypto) => (
+        {currentCryptos && currentCryptos.length > 0 ? (
+          currentCryptos.map((crypto) => (
             <li key={crypto.id} className="cryptoItem">
-              <img src={crypto.imageurl} alt={crypto.name} className="logo-crypto"/>
+              <img src={crypto.imageurl} alt={crypto.name} className="logo-crypto" />
               {crypto.name}
               <button
                 onClick={() =>
@@ -154,6 +168,32 @@ const AdminSection = () => {
           <p>No cryptos found.</p>
         )}
       </ul>
+      <div>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
+          <button key={pageNumber} onClick={() => handlePageChange(pageNumber)}>
+            {pageNumber}
+          </button>
+        ))}
+      </div>
+      {/* <ul>
+        {cryptos && cryptos.length > 0 ? (
+          cryptos.map((crypto) => (
+            <li key={crypto.id} className="cryptoItem">
+              <img src={crypto.imageurl} alt={crypto.name} className="logo-crypto" />
+              {crypto.name}
+              <button
+                onClick={() =>
+                  toggleCryptoVisibility(crypto.id, crypto.isvisibletoguests)
+                }
+              >
+                {crypto.isvisibletoguests ? "Hide" : "Show"}
+              </button>
+            </li>
+          ))
+        ) : (
+          <p>No cryptos found.</p>
+        )}
+      </ul> */}
     </div>
   );
 };
